@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo:wght@400&family=Figtree:wght@400;600;700&display=swap');
+
+:root {
+  --bg: #fffdf8;
+  --navy: #15213d;
+  --coral: #ff6257;
+  --teal: #19b5a5;
+  --amber: #ffc857;
+  --text: #15213d;
+  --text-on-dark: #fffdf8;
+  --pad-x: 35.2px;
+  --pad-left: 64px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Figtree', system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Caprasimo', system-ui, sans-serif;
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: -0.015em;
+}
+
+a {
+  color: var(--coral);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--teal);
+}
+
+::selection {
+  background: rgba(255, 98, 87, 0.3);
+}
+
+input:focus-visible,
+textarea:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--coral);
+  outline-offset: 2px;
+}
+
+button {
+  font-family: inherit;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--pad-x) 0 var(--pad-left);
+}
+
+.eyebrow {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8.8px;
+  font-family: 'Figtree', sans-serif;
+}
+
+.section {
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+
+.section-tight {
+  padding-top: 52.8px;
+  padding-bottom: 52.8px;
+}
+
+.grid-auto {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.card-dark {
+  padding: 22px;
+  border-radius: 32px;
+  background: var(--navy);
+  color: var(--text-on-dark);
+  box-shadow: 0 1px 2px rgba(21, 33, 61, 0.14);
+}
+
+.badge {
+  display: inline-block;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 12px;
+  color: #fffdf8;
+  width: max-content;
+}
+
+.btn {
+  font-family: 'Caprasimo', system-ui, sans-serif;
+  font-size: 14px;
+  border: none;
+  border-radius: 999px;
+  padding: 13.2px 26.4px;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-sm {
+  font-size: 13px;
+  padding: 8.8px 18px;
+}
+
+.btn-coral {
+  background: var(--coral);
+  color: var(--text-on-dark);
+}
+
+.btn-teal {
+  background: var(--teal);
+  color: var(--text-on-dark);
+}
+
+.btn-amber {
+  background: var(--amber);
+  color: var(--navy);
+}
+
+.btn-light {
+  background: var(--bg);
+  color: var(--navy);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid rgba(255, 253, 248, 0.4);
+  color: var(--text-on-dark);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.field label {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 5px;
+  color: rgba(21, 33, 61, 0.7);
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 8px 14px;
+  font-size: 14px;
+  background: var(--navy);
+  color: var(--text-on-dark);
+  border: 1px solid rgba(21, 33, 61, 0.16);
+  border-radius: 999px;
+  font-family: inherit;
+}
+
+.field textarea {
+  border-radius: 20px;
+  min-height: 90px;
+  resize: vertical;
+}
+
+.field-light input,
+.field-light textarea {
+  background: var(--bg);
+  color: var(--navy);
+}
+
+.confirm-box {
+  padding: 26.4px;
+  border-radius: 32px;
+  background: var(--teal);
+  color: var(--text-on-dark);
+}
+
+.link-cta {
+  font-family: 'Caprasimo', system-ui, sans-serif;
+  font-size: 13px;
+}
+
+.carousel-track {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-item {
+  flex: none;
+  scroll-snap-align: start;
+}
+
+::placeholder {
+  color: rgba(255, 253, 248, 0.5);
+}
+
+.field-light ::placeholder {
+  color: rgba(21, 33, 61, 0.45);
+}
