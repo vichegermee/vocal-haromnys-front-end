@@ -23,7 +23,7 @@ export function Gallery() {
       <h2 style={{ fontSize: 22, marginBottom: 17.6 }}>Photos</h2>
       <div style={{ display: 'flex', gap: 35.2, flexWrap: 'wrap', alignItems: 'stretch', marginBottom: 52.8 }}>
         <div style={{ flex: '3 1 480px', minWidth: 0 }}>
-          <Carousel height={PHOTO_SIZE} prevLabel="Photos précédentes" nextLabel="Photos suivantes">
+          <Carousel height={PHOTO_SIZE} autoScroll autoScrollSpeed={30}>
             {photos.map((p) => (
               <div key={p.id} className="carousel-item" style={{ width: PHOTO_SIZE, height: PHOTO_SIZE }}>
                 <ImageSlot label={p.label} src={p.imageUrl} shape="rounded" radius={20} style={{ width: '100%', height: '100%' }} />
@@ -34,11 +34,10 @@ export function Gallery() {
         <div className="card-dark" style={{ flex: '2 1 280px', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 13.2 }}>
           <h3 style={{ fontSize: 20 }}>Une seule voix, mille couleurs</h3>
           <p style={{ fontSize: 14, opacity: 0.85, margin: 0 }}>
-            Nous sommes une chorale à l'image du monde qui nous entoure : des voix blanches, noires et métisses qui
-            se répondent et s'unissent sur scène. On y chante aussi bien en anglais qu'en français, et notre
-            répertoire voyage sans complexe du gospel au lyrique, en passant par les musiques africaines. C'est
-            cette diversité qui fait notre force et notre joie — chaque répétition est une rencontre, chaque
-            concert une célébration de ce que nous sommes ensemble.
+            Bienvenue dans l'univers du Groupe Vocal Harmony's, l'une des chorales les plus vibrantes de Reims, la Ville des sacres. Chant africain, gospel, negro-spiritual, classique ou liturgique : notre voix n'a pas de frontières, seulement de la passion à revendre.
+          </p>
+          <p>
+            Fermez les yeux, ouvrez votre cœur, et laissez nos chants vous transporter.
           </p>
         </div>
       </div>

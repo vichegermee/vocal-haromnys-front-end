@@ -22,7 +22,7 @@ export function Footer() {
         <section className="section-tight" style={{ background: 'var(--bg)', borderTop: '1px solid rgba(21,33,61,0.1)' }}>
           <div className="container">
             <h2 style={{ fontSize: 24, marginBottom: 26.4, textAlign: 'center' }}>Ils nous ont fait confiance</h2>
-            <Carousel height={LOGO_HEIGHT} prevLabel="Partenaires précédents" nextLabel="Partenaires suivants">
+            <Carousel height={LOGO_HEIGHT} autoScroll autoScrollSpeed={45}>
               {partners.map((pt) => (
                 <div
                   key={pt.id}
