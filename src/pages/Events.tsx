@@ -1,7 +1,23 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { upcomingEvents, pastEvents, accentPair } from '../data';
+import { fetchEvents, type EventItem } from '../api/events';
+import { ACCENT_PAIR } from '../constants';
+
+const dateFormatter = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
+
+function formatEventDate(isoDate: string): string {
+  return dateFormatter.format(new Date(isoDate));
+}
 
 export function Events() {
+  const [upcoming, setUpcoming] = useState<EventItem[]>([]);
+  const [past, setPast] = useState<EventItem[]>([]);
+
+  useEffect(() => {
+    fetchEvents('upcoming').then(setUpcoming);
+    fetchEvents('past').then(setPast);
+  }, []);
+
   return (
     <section className="section container">
       <h6 className="eyebrow" style={{ color: 'var(--teal)' }}>Agenda</h6>
@@ -9,12 +25,12 @@ export function Events() {
 
       <h2 style={{ fontSize: 24, marginBottom: 22 }}>À venir</h2>
       <div className="grid-auto" style={{ marginBottom: 52.8 }}>
-        {upcomingEvents.map((ev, i) => (
-          <div key={ev.title} className="card-dark" style={{ display: 'flex', flexDirection: 'column', gap: 8.8 }}>
-            <span className="badge" style={{ background: accentPair[i % 2] }}>{ev.date}</span>
+        {upcoming.map((ev, i) => (
+          <div key={ev.id} className="card-dark" style={{ display: 'flex', flexDirection: 'column', gap: 8.8 }}>
+            <span className="badge" style={{ background: ACCENT_PAIR[i % 2] }}>{formatEventDate(ev.eventDate)}</span>
             <div style={{ fontFamily: "'Caprasimo',system-ui,sans-serif", fontSize: 19 }}>{ev.title}</div>
-            <div style={{ fontSize: 13, opacity: 0.7 }}>{ev.lieu}</div>
-            <p style={{ fontSize: 13, opacity: 0.8, margin: '4.4px 0 0' }}>{ev.desc}</p>
+            <div style={{ fontSize: 13, opacity: 0.7 }}>{ev.location}</div>
+            <p style={{ fontSize: 13, opacity: 0.8, margin: '4.4px 0 0' }}>{ev.description}</p>
           </div>
         ))}
       </div>
@@ -42,11 +58,11 @@ export function Events() {
           </tr>
         </thead>
         <tbody>
-          {pastEvents.map((ev) => (
-            <tr key={ev.title}>
-              <td style={{ padding: 8.8, borderBottom: '1px solid rgba(21,33,61,0.08)' }}>{ev.date}</td>
+          {past.map((ev) => (
+            <tr key={ev.id}>
+              <td style={{ padding: 8.8, borderBottom: '1px solid rgba(21,33,61,0.08)' }}>{formatEventDate(ev.eventDate)}</td>
               <td style={{ padding: 8.8, borderBottom: '1px solid rgba(21,33,61,0.08)' }}>{ev.title}</td>
-              <td style={{ padding: 8.8, borderBottom: '1px solid rgba(21,33,61,0.08)' }}>{ev.lieu}</td>
+              <td style={{ padding: 8.8, borderBottom: '1px solid rgba(21,33,61,0.08)' }}>{ev.location}</td>
             </tr>
           ))}
         </tbody>

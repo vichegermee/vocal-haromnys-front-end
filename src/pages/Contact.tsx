@@ -1,11 +1,76 @@
 import { useState } from 'react';
+import { submitReservation } from '../api/reservations';
+import { submitJoinApplication } from '../api/joinApplications';
+import { ApiError } from '../api/client';
+import type { VoicePart } from '../api/choristers';
 
-const pupitres = ['Soprano', 'Alto', 'Ténor', 'Basse'];
+const pupitres: { value: VoicePart; label: string }[] = [
+  { value: 'SOPRANO', label: 'Soprano' },
+  { value: 'ALTO', label: 'Alto' },
+  { value: 'TENOR', label: 'Ténor' },
+  { value: 'BASSE', label: 'Basse' },
+];
 
 export function Contact() {
   const [reservationSent, setReservationSent] = useState(false);
+  const [reservationError, setReservationError] = useState<string | null>(null);
+  const [reservationSubmitting, setReservationSubmitting] = useState(false);
+
   const [joinSent, setJoinSent] = useState(false);
-  const [pupitre, setPupitre] = useState<string | null>(null);
+  const [joinError, setJoinError] = useState<string | null>(null);
+  const [joinSubmitting, setJoinSubmitting] = useState(false);
+  const [pupitre, setPupitre] = useState<VoicePart | null>(null);
+
+  async function handleReservationSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    setReservationSubmitting(true);
+    setReservationError(null);
+    try {
+      await submitReservation({
+        eventType: String(data.get('eventType') ?? ''),
+        desiredDate: String(data.get('desiredDate') ?? ''),
+        budget: String(data.get('budget') ?? '') || undefined,
+        location: String(data.get('location') ?? ''),
+        choristerCount: String(data.get('choristerCount') ?? '') || undefined,
+        message: String(data.get('message') ?? '') || undefined,
+        requesterName: String(data.get('requesterName') ?? ''),
+        requesterEmail: String(data.get('requesterEmail') ?? ''),
+      });
+      setReservationSent(true);
+    } catch (err) {
+      setReservationError(err instanceof ApiError ? err.message : 'Une erreur est survenue, réessayez.');
+    } finally {
+      setReservationSubmitting(false);
+    }
+  }
+
+  async function handleJoinSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!pupitre) {
+      setJoinError('Merci de choisir un pupitre vocal.');
+      return;
+    }
+    const data = new FormData(e.currentTarget);
+    setJoinSubmitting(true);
+    setJoinError(null);
+    try {
+      await submitJoinApplication({
+        voicePart: pupitre,
+        experience: String(data.get('experience') ?? '') || undefined,
+        availability: String(data.get('availability') ?? '') || undefined,
+        audioLink: String(data.get('audioLink') ?? '') || undefined,
+        motivation: String(data.get('motivation') ?? ''),
+        applicantName: String(data.get('applicantName') ?? ''),
+        applicantEmail: String(data.get('applicantEmail') ?? ''),
+      });
+      setJoinSent(true);
+    } catch (err) {
+      setJoinError(err instanceof ApiError ? err.message : 'Une erreur est survenue, réessayez.');
+    } finally {
+      setJoinSubmitting(false);
+    }
+  }
 
   return (
     <section className="section container">
@@ -43,42 +108,48 @@ export function Contact() {
               Merci ! Votre demande de prestation a bien été envoyée — nous revenons vers vous rapidement.
             </div>
           ) : (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                setReservationSent(true);
-              }}
-              className="field"
-              style={{ display: 'flex', flexDirection: 'column', gap: 13.2 }}
-            >
+            <form onSubmit={handleReservationSubmit} className="field" style={{ display: 'flex', flexDirection: 'column', gap: 13.2 }}>
+              {reservationError && (
+                <div style={{ padding: '10px 14px', borderRadius: 16, background: 'var(--coral)', color: 'var(--text-on-dark)', fontSize: 13 }}>
+                  {reservationError}
+                </div>
+              )}
+              <div>
+                <label>Votre nom</label>
+                <input name="requesterName" required placeholder="Nom complet" />
+              </div>
+              <div>
+                <label>Votre email</label>
+                <input name="requesterEmail" required type="email" placeholder="pour vous répondre" />
+              </div>
               <div>
                 <label>Type d'événement</label>
-                <input required placeholder="Culte, mariage, festival…" />
+                <input name="eventType" required placeholder="Culte, mariage, festival…" />
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 13.2 }}>
                 <div>
                   <label>Date souhaitée</label>
-                  <input type="date" required />
+                  <input name="desiredDate" type="date" required />
                 </div>
                 <div>
                   <label>Budget approximatif</label>
-                  <input placeholder="Optionnel" />
+                  <input name="budget" placeholder="Optionnel" />
                 </div>
               </div>
               <div>
                 <label>Lieu</label>
-                <input required placeholder="Ville, salle, église…" />
+                <input name="location" required placeholder="Ville, salle, église…" />
               </div>
               <div>
                 <label>Nombre de choristes souhaité</label>
-                <input placeholder="Optionnel" />
+                <input name="choristerCount" placeholder="Optionnel" />
               </div>
               <div>
                 <label>Message</label>
-                <textarea placeholder="Parlez-nous de votre projet" />
+                <textarea name="message" placeholder="Parlez-nous de votre projet" />
               </div>
-              <button type="submit" className="btn btn-coral" style={{ marginTop: 8.8, width: '100%' }}>
-                Envoyer la demande
+              <button type="submit" disabled={reservationSubmitting} className="btn btn-coral" style={{ marginTop: 8.8, width: '100%' }}>
+                {reservationSubmitting ? 'Envoi…' : 'Envoyer la demande'}
               </button>
             </form>
           )}
@@ -91,20 +162,26 @@ export function Contact() {
               Merci pour votre message ! Nous vous recontacterons pour organiser une écoute.
             </div>
           ) : (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                setJoinSent(true);
-              }}
-              className="field"
-              style={{ display: 'flex', flexDirection: 'column', gap: 13.2 }}
-            >
+            <form onSubmit={handleJoinSubmit} className="field" style={{ display: 'flex', flexDirection: 'column', gap: 13.2 }}>
+              {joinError && (
+                <div style={{ padding: '10px 14px', borderRadius: 16, background: 'var(--coral)', color: 'var(--text-on-dark)', fontSize: 13 }}>
+                  {joinError}
+                </div>
+              )}
+              <div>
+                <label>Votre nom</label>
+                <input name="applicantName" required placeholder="Nom complet" />
+              </div>
+              <div>
+                <label>Votre email</label>
+                <input name="applicantEmail" required type="email" placeholder="pour vous répondre" />
+              </div>
               <div>
                 <label>Pupitre vocal</label>
                 <div style={{ display: 'inline-flex', overflow: 'hidden', border: '1px solid rgba(21,33,61,0.16)', borderRadius: 999 }}>
                   {pupitres.map((p, i) => (
                     <label
-                      key={p}
+                      key={p.value}
                       style={{
                         display: 'inline-flex',
                         alignItems: 'center',
@@ -113,41 +190,41 @@ export function Contact() {
                         fontSize: 13,
                         cursor: 'pointer',
                         borderLeft: i > 0 ? '1px solid rgba(21,33,61,0.16)' : 'none',
-                        background: pupitre === p ? 'var(--navy)' : 'transparent',
-                        color: pupitre === p ? 'var(--text-on-dark)' : 'var(--navy)',
+                        background: pupitre === p.value ? 'var(--navy)' : 'transparent',
+                        color: pupitre === p.value ? 'var(--text-on-dark)' : 'var(--navy)',
                       }}
                     >
                       <input
                         type="radio"
                         name="pupitre"
-                        value={p}
-                        checked={pupitre === p}
-                        onChange={() => setPupitre(p)}
+                        value={p.value}
+                        checked={pupitre === p.value}
+                        onChange={() => setPupitre(p.value)}
                         style={{ position: 'absolute', opacity: 0, width: 0, height: 0 }}
                       />
-                      {p}
+                      {p.label}
                     </label>
                   ))}
                 </div>
               </div>
               <div>
                 <label>Expérience musicale</label>
-                <input placeholder="Chorale, conservatoire, autodidacte…" />
+                <input name="experience" placeholder="Chorale, conservatoire, autodidacte…" />
               </div>
               <div>
                 <label>Disponibilités</label>
-                <input placeholder="Jours et soirs disponibles pour répéter" />
+                <input name="availability" placeholder="Jours et soirs disponibles pour répéter" />
               </div>
               <div>
                 <label>Lien audio/vidéo (optionnel)</label>
-                <input placeholder="Un extrait de vous en train de chanter" />
+                <input name="audioLink" placeholder="Un extrait de vous en train de chanter" />
               </div>
               <div>
                 <label>Votre motivation</label>
-                <textarea required placeholder="Pourquoi souhaitez-vous rejoindre Vocal Harmony's ?" />
+                <textarea name="motivation" required placeholder="Pourquoi souhaitez-vous rejoindre Vocal Harmony's ?" />
               </div>
-              <button type="submit" className="btn btn-teal" style={{ marginTop: 8.8, width: '100%' }}>
-                Envoyer ma candidature
+              <button type="submit" disabled={joinSubmitting} className="btn btn-teal" style={{ marginTop: 8.8, width: '100%' }}>
+                {joinSubmitting ? 'Envoi…' : 'Envoyer ma candidature'}
               </button>
             </form>
           )}

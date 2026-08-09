@@ -3,20 +3,25 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth';
 
 export function Login() {
-  const { loggedIn, login } = useAuth();
+  const { loggedIn, initializing, login } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
+  if (initializing) return null;
   if (loggedIn) {
     return <Navigate to="/repertoire" replace />;
   }
 
-  function handleLogin(e: React.FormEvent<HTMLFormElement>) {
+  async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const username = (form.elements.namedItem('username') as HTMLInputElement).value;
     const password = (form.elements.namedItem('password') as HTMLInputElement).value;
-    if (login(username, password)) {
+    setSubmitting(true);
+    const success = await login(username, password);
+    setSubmitting(false);
+    if (success) {
       setError(false);
       navigate('/repertoire');
     } else {
@@ -45,8 +50,8 @@ export function Login() {
           <label style={{ color: 'rgba(255,253,248,0.7)' }}>Mot de passe</label>
           <input name="password" type="password" required />
         </div>
-        <button type="submit" className="btn btn-coral" style={{ marginTop: 8.8, width: '100%' }}>
-          Se connecter
+        <button type="submit" className="btn btn-coral" disabled={submitting} style={{ marginTop: 8.8, width: '100%' }}>
+          {submitting ? 'Connexion…' : 'Se connecter'}
         </button>
       </form>
       <p style={{ fontSize: 12, opacity: 0.55, marginTop: 17.6 }}>

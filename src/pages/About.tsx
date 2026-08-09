@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ImageSlot } from '../components/ImageSlot';
-import { choristes, accentPair } from '../data';
+import { fetchChoristers, type Chorister } from '../api/choristers';
+import { ACCENT_PAIR } from '../constants';
 
 const guides = [
   { title: 'Foi', desc: 'Chaque chant est une prière ; la musique est notre manière de témoigner.' },
@@ -9,7 +11,13 @@ const guides = [
 ];
 
 export function About() {
-  const preview = choristes.slice(0, 4);
+  const [choristers, setChoristers] = useState<Chorister[]>([]);
+
+  useEffect(() => {
+    fetchChoristers().then(setChoristers);
+  }, []);
+
+  const preview = choristers.slice(0, 4);
 
   return (
     <>
@@ -75,9 +83,9 @@ export function About() {
           <div className="grid-auto" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))' }}>
             {preview.map((c, i) => (
               <div key={c.id} className="card-dark" style={{ padding: 17.6, display: 'flex', flexDirection: 'column', gap: 8.8 }}>
-                <ImageSlot label="Photo du choriste" src={c.img} shape="rounded" radius={20} style={{ width: '100%', aspectRatio: '1/1' }} />
-                <div style={{ fontFamily: "'Caprasimo',system-ui,sans-serif", fontSize: 16, marginTop: 4.4 }}>{c.nom}</div>
-                <span className="badge" style={{ background: accentPair[i % 2] }}>{c.pupitre}</span>
+                <ImageSlot label="Photo du choriste" src={c.imageUrl} shape="rounded" radius={20} style={{ width: '100%', aspectRatio: '1/1' }} />
+                <div style={{ fontFamily: "'Caprasimo',system-ui,sans-serif", fontSize: 16, marginTop: 4.4 }}>{c.name}</div>
+                <span className="badge" style={{ background: ACCENT_PAIR[i % 2] }}>{c.voicePart}</span>
               </div>
             ))}
           </div>

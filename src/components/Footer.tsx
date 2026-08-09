@@ -1,16 +1,23 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { partenaires } from '../data';
+import { fetchPartners, type Partner } from '../api/partners';
 import { ImageSlot } from './ImageSlot';
 
 export function Footer() {
+  const [partners, setPartners] = useState<Partner[]>([]);
+
+  useEffect(() => {
+    fetchPartners().then(setPartners);
+  }, []);
+
   return (
     <>
       <section className="section-tight" style={{ background: 'var(--bg)', borderTop: '1px solid rgba(21,33,61,0.1)' }}>
         <div className="container" style={{ textAlign: 'center' }}>
           <h2 style={{ fontSize: 24, marginBottom: 26.4 }}>Nos partenaires</h2>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 26.4 }}>
-            {partenaires.map((pt) => (
-              <ImageSlot key={pt.id} label={pt.label} src={pt.img} shape="rounded" radius={16} style={{ width: 140, height: 70 }} />
+            {partners.map((pt) => (
+              <ImageSlot key={pt.id} label={pt.label} src={pt.imageUrl} shape="rounded" radius={16} style={{ width: 140, height: 70 }} />
             ))}
           </div>
         </div>

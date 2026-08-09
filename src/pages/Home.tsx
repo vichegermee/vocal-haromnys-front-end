@@ -1,9 +1,17 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ImageSlot } from '../components/ImageSlot';
-import { upcomingEvents, accentPair } from '../data';
+import { fetchEvents, type EventItem } from '../api/events';
+import { ACCENT_PAIR } from '../constants';
+
+const dateFormatter = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
 
 export function Home() {
-  const preview = upcomingEvents.slice(0, 3);
+  const [preview, setPreview] = useState<EventItem[]>([]);
+
+  useEffect(() => {
+    fetchEvents('upcoming').then((events) => setPreview(events.slice(0, 3)));
+  }, []);
 
   return (
     <>
@@ -71,10 +79,10 @@ export function Home() {
           </div>
           <div className="grid-auto">
             {preview.map((ev, i) => (
-              <div key={ev.title} className="card-dark" style={{ display: 'flex', flexDirection: 'column', gap: 8.8 }}>
-                <span className="badge" style={{ background: accentPair[i % 2] }}>{ev.date}</span>
+              <div key={ev.id} className="card-dark" style={{ display: 'flex', flexDirection: 'column', gap: 8.8 }}>
+                <span className="badge" style={{ background: ACCENT_PAIR[i % 2] }}>{dateFormatter.format(new Date(ev.eventDate))}</span>
                 <div style={{ fontFamily: "'Caprasimo',system-ui,sans-serif", fontSize: 18 }}>{ev.title}</div>
-                <div style={{ fontSize: 13, opacity: 0.7 }}>{ev.lieu}</div>
+                <div style={{ fontSize: 13, opacity: 0.7 }}>{ev.location}</div>
               </div>
             ))}
           </div>

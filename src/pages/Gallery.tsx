@@ -1,13 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ImageSlot } from '../components/ImageSlot';
 import { Carousel } from '../components/Carousel';
-import { galleryPhotos, videos } from '../data';
+import { fetchGalleryPhotos, fetchGalleryVideos, type GalleryPhoto, type GalleryVideo } from '../api/gallery';
 
 const PHOTO_SIZE = 280;
 
 export function Gallery() {
-  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
-  const featuredVideos = videos.slice(0, 3);
+  const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
+  const [videos, setVideos] = useState<GalleryVideo[]>([]);
+  const [playingVideo, setPlayingVideo] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetchGalleryPhotos().then(setPhotos);
+    fetchGalleryVideos().then(setVideos);
+  }, []);
 
   return (
     <section className="section container">
@@ -18,9 +24,9 @@ export function Gallery() {
       <div style={{ display: 'flex', gap: 35.2, flexWrap: 'wrap', alignItems: 'stretch', marginBottom: 52.8 }}>
         <div style={{ flex: '3 1 480px', minWidth: 0 }}>
           <Carousel height={PHOTO_SIZE}>
-            {galleryPhotos.map((p) => (
+            {photos.map((p) => (
               <div key={p.id} className="carousel-item" style={{ width: PHOTO_SIZE, height: PHOTO_SIZE }}>
-                <ImageSlot label={p.label} src={p.img} shape="rounded" radius={20} style={{ width: '100%', height: '100%' }} />
+                <ImageSlot label={p.label} src={p.imageUrl} shape="rounded" radius={20} style={{ width: '100%', height: '100%' }} />
               </div>
             ))}
           </Carousel>
@@ -39,13 +45,13 @@ export function Gallery() {
 
       <h2 style={{ fontSize: 22, marginBottom: 17.6 }}>Vidéos</h2>
       <div className="grid-auto" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))' }}>
-        {featuredVideos.map((v) => {
+        {videos.map((v) => {
           const isPlaying = playingVideo === v.id;
           return (
             <div key={v.id} style={{ position: 'relative', borderRadius: 28, overflow: 'hidden', aspectRatio: '16/9' }}>
               {isPlaying ? (
                 <iframe
-                  src={`https://www.youtube.com/embed/${v.ytId}?autoplay=1`}
+                  src={`https://www.youtube.com/embed/${v.youtubeId}?autoplay=1`}
                   title={v.title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -61,7 +67,7 @@ export function Gallery() {
                     padding: 0,
                     border: 'none',
                     cursor: 'pointer',
-                    backgroundImage: `url(https://img.youtube.com/vi/${v.ytId}/hqdefault.jpg)`,
+                    backgroundImage: `url(https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg)`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                   }}
