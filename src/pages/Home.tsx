@@ -19,7 +19,7 @@ export function Home() {
         <div style={{ position: 'relative', height: '52vh', minHeight: 340 }}>
           <ImageSlot
             label="Photo du groupe en concert (plein cadre)"
-            src="/images/hero-photo.jpg"
+            src="/images/hero-concert-eglise.jpg"
             shape="rect"
             style={{ width: '100%', height: '100%' }}
           />
