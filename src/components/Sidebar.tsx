@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { fetchEvents, type EventItem } from '../api/events';
 import { ACCENT_PAIR } from '../constants';
 
@@ -81,12 +82,17 @@ export function Sidebar() {
         <h6 className="eyebrow" style={{ color: 'var(--teal)', fontSize: 12 }}>Actualités</h6>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 13.2 }}>
           {events.map((ev, i) => (
-            <div key={ev.id} className="card-dark" style={{ padding: 17.6, borderRadius: 24 }}>
+            <Link
+              key={ev.id}
+              to={`/evenements#event-${ev.id}`}
+              className="card-dark"
+              style={{ display: 'block', padding: 17.6, borderRadius: 24 }}
+            >
               <div style={{ fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase', color: ACCENT_PAIR[i % 2], marginBottom: 6 }}>
                 {formatEventDate(ev.eventDate)}
               </div>
               <div style={{ fontFamily: "'Caprasimo',system-ui,sans-serif", fontSize: 14, lineHeight: 1.3 }}>{ev.title}</div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

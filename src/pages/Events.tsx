@@ -9,6 +9,12 @@ function formatEventDate(isoDate: string): string {
   return dateFormatter.format(new Date(isoDate));
 }
 
+/** The overview grid gets a one-line teaser; the full text lives in the "En détail" section below. */
+function firstSentence(text: string): string {
+  const end = text.indexOf('. ');
+  return end === -1 ? text : text.slice(0, end + 1);
+}
+
 export function Events() {
   const [upcoming, setUpcoming] = useState<EventItem[]>([]);
   const [past, setPast] = useState<EventItem[]>([]);
@@ -30,7 +36,7 @@ export function Events() {
             <span className="badge" style={{ background: ACCENT_PAIR[i % 2] }}>{formatEventDate(ev.eventDate)}</span>
             <div style={{ fontFamily: "'Caprasimo',system-ui,sans-serif", fontSize: 19 }}>{ev.title}</div>
             <div style={{ fontSize: 13, opacity: 0.7 }}>{ev.location}</div>
-            <p style={{ fontSize: 13, opacity: 0.8, margin: '4.4px 0 0' }}>{ev.description}</p>
+            <p style={{ fontSize: 13, opacity: 0.8, margin: '4.4px 0 0' }}>{ev.description && firstSentence(ev.description)}</p>
           </div>
         ))}
       </div>
@@ -77,6 +83,31 @@ export function Events() {
         </div>
         <Link to="/contact" className="btn btn-light" style={{ whiteSpace: 'nowrap' }}>Faire une demande</Link>
       </div>
+
+      {upcoming.length > 0 && (
+        <>
+          <h2 style={{ fontSize: 24, marginTop: 52.8, marginBottom: 22 }}>En détail</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
+            {upcoming.map((ev, i) => (
+              <div
+                key={ev.id}
+                id={`event-${ev.id}`}
+                className="card-dark"
+                style={{ padding: 35.2, borderRadius: 32, scrollMarginTop: 96 }}
+              >
+                <span className="badge" style={{ background: ACCENT_PAIR[i % 2], marginBottom: 13.2 }}>
+                  {formatEventDate(ev.eventDate)}
+                </span>
+                <h3 style={{ fontSize: 22, color: 'var(--text-on-dark)', margin: '8.8px 0 4.4px' }}>{ev.title}</h3>
+                <div style={{ fontSize: 13, color: 'var(--text-on-dark)', opacity: 0.7, marginBottom: 13.2 }}>{ev.location}</div>
+                <p style={{ fontSize: 14, color: 'var(--text-on-dark)', opacity: 0.85, margin: 0, lineHeight: 1.6, maxWidth: 640 }}>
+                  {ev.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </section>
   );
 }

@@ -79,11 +79,16 @@ export function Home() {
           </div>
           <div className="grid-auto">
             {preview.map((ev, i) => (
-              <div key={ev.id} className="card-dark" style={{ display: 'flex', flexDirection: 'column', gap: 8.8 }}>
+              <Link
+                key={ev.id}
+                to={`/evenements#event-${ev.id}`}
+                className="card-dark"
+                style={{ display: 'flex', flexDirection: 'column', gap: 8.8 }}
+              >
                 <span className="badge" style={{ background: ACCENT_PAIR[i % 2] }}>{dateFormatter.format(new Date(ev.eventDate))}</span>
                 <div style={{ fontFamily: "'Caprasimo',system-ui,sans-serif", fontSize: 18 }}>{ev.title}</div>
                 <div style={{ fontSize: 13, opacity: 0.7 }}>{ev.location}</div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
