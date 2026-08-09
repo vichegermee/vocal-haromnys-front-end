@@ -1,9 +1,14 @@
 import { api } from './client';
 
-export type DonationRequest = {
+export type DonationCheckoutRequest = {
   amount: number;
   donorName: string;
   donorEmail: string;
+};
+
+export type DonationCheckoutResponse = {
+  donationId: number;
+  checkoutUrl: string;
 };
 
 export type Donation = {
@@ -12,9 +17,12 @@ export type Donation = {
   donorName: string;
   donorEmail: string;
   status: string;
+  paymentStatus: string;
+  paidAt: string | null;
   createdAt: string;
 };
 
-export function submitDonation(request: DonationRequest): Promise<Donation> {
-  return api.post<Donation>('/donations', request);
+/** Creates a Stripe Checkout Session for this donation; redirect the browser to the returned checkoutUrl. */
+export function createDonationCheckoutSession(request: DonationCheckoutRequest): Promise<DonationCheckoutResponse> {
+  return api.post<DonationCheckoutResponse>('/donations/checkout-sessions', request);
 }

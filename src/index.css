@@ -179,6 +179,19 @@ button {
   font-family: inherit;
 }
 
+/* Radios/checkboxes shouldn't inherit the text-field sizing above — this
+   needs to win on specificity alone (no :not() on the base rule), so it
+   doesn't outrank .field-light input's background/color override below. */
+.field input[type='radio'],
+.field input[type='checkbox'] {
+  width: auto;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  flex: none;
+}
+
 .field textarea {
   border-radius: 20px;
   min-height: 90px;
@@ -189,6 +202,10 @@ button {
 .field-light textarea {
   background: var(--bg);
   color: var(--navy);
+}
+
+.field-light label {
+  color: var(--text-on-dark);
 }
 
 .confirm-box {
