@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ImageSlot } from '../components/ImageSlot';
 import { fetchChoristers, type Chorister } from '../api/choristers';
-import { ACCENT_PAIR } from '../constants';
+import { ACCENT_PAIR, VOICE_PART_LABELS } from '../constants';
 
 const guides = [
   { title: 'Foi', desc: 'Chaque chant est une prière ; la musique est notre manière de témoigner.' },
@@ -85,7 +85,7 @@ export function About() {
               <div key={c.id} className="card-dark" style={{ padding: 17.6, display: 'flex', flexDirection: 'column', gap: 8.8 }}>
                 <ImageSlot label="Photo du choriste" src={c.imageUrl} shape="rounded" radius={20} style={{ width: '100%', aspectRatio: '1/1' }} />
                 <div style={{ fontFamily: "'Caprasimo',system-ui,sans-serif", fontSize: 16, marginTop: 4.4 }}>{c.name}</div>
-                <span className="badge" style={{ background: ACCENT_PAIR[i % 2] }}>{c.voicePart}</span>
+                <span className="badge" style={{ background: ACCENT_PAIR[i % 2] }}>{VOICE_PART_LABELS[c.voicePart]}</span>
               </div>
             ))}
           </div>
