@@ -34,18 +34,35 @@ export function About() {
           />
           <div>
             <p style={{ fontSize: 16, opacity: 0.85, marginBottom: 17.6 }}>
-              Vocal Harmony's est née en 2012 à Paris, autour d'une poignée d'amis originaires du Cameroun, du Congo
-              et de Côte d'Ivoire, réunis par le même besoin de chanter leur foi dans leur langue et leurs rythmes
-              d'origine.
+              Installé à Reims, le Groupe Vocal Harmony's est aujourd'hui l'une des chorales les plus reconnues de
+              la Ville des Sacres. Son style dynamique traverse sans complexe le chant africain, classique, gospel,
+              negro-spiritual, traditionnel et liturgique — une palette large, au service d'une seule et même
+              émotion. Entrer dans notre univers, c'est se laisser transporter par l'intensité de notre musique.
             </p>
             <p style={{ fontSize: 16, opacity: 0.85, marginBottom: 17.6 }}>
-              Ce qui a commencé comme une petite fraternité de chant dans un salon parisien est devenu, au fil des
-              années, une chorale de plus de trente voix, invitée dans des églises, des festivals et des salles de
-              concert à travers toute la France.
+              Le groupe est né de plusieurs rencontres. Chacune de ces personnes avait déjà acquis, au fil des
+              années et de ses propres expériences, une réelle maturité dans le chant choral ; ensemble, elles ont
+              fait le pari de fonder un chœur porté par des valeurs partagées : la convivialité, l'exigence du
+              travail vocal et l'amour de ce chant sacré. C'est ainsi qu'est né, en octobre 2018 à Reims, dans la
+              Marne, le Groupe Vocal Harmony's — sept membres, à l'origine, réunis autour d'une même conviction.
+            </p>
+            <p style={{ fontSize: 16, opacity: 0.85, marginBottom: 17.6 }}>
+              Depuis, la chorale s'est considérablement étoffée. Elle rassemble aujourd'hui des choristes de bon
+              niveau, jeunes et moins jeunes, venus de tous horizons — Afrique, Antilles, France — étudiants,
+              salariés ou intermittents, tous animés par la même ambition : mettre en valeur le chant choral. Tous
+              partagent aussi une même passion pour le gospel, et chaque événement est l'occasion, pour ce groupe de
+              passionnés, de se retrouver, de partager des moments forts et de communiquer cette passion dans une
+              chaleureuse convivialité avec son public.
+            </p>
+            <p style={{ fontSize: 16, opacity: 0.85, marginBottom: 17.6 }}>
+              S'inspirant des chœurs dits « afro », le répertoire de Vocal Harmony's conjugue aussi bien le chant
+              gospel traditionnel et contemporain que le chant traditionnel africain, le chant liturgique, le
+              negro-spiritual et le spiritual. C'est une manière d'honorer, dans une même prestation, la diversité
+              des voix et des héritages qui composent le groupe, et de faire vivre un chant qui puise dans plusieurs
+              traditions à la fois.
             </p>
             <p style={{ fontSize: 16, opacity: 0.85 }}>
-              Aujourd'hui encore, chaque répétition commence par une prière et se termine par un chant — parce que
-              pour nous, la musique n'a jamais été qu'un divertissement.
+              Entrez dans notre univers, et laissez-vous transporter par les émotions intenses de notre musique.
             </p>
           </div>
         </div>
