@@ -3,9 +3,11 @@ import { useRef, type ReactNode } from 'react';
 type CarouselProps = {
   children: ReactNode;
   height?: number;
+  prevLabel?: string;
+  nextLabel?: string;
 };
 
-export function Carousel({ children, height = 280 }: CarouselProps) {
+export function Carousel({ children, height = 280, prevLabel = 'Précédent', nextLabel = 'Suivant' }: CarouselProps) {
   const trackRef = useRef<HTMLDivElement>(null);
 
   function scrollByAmount(dir: 1 | -1) {
@@ -29,7 +31,7 @@ export function Carousel({ children, height = 280 }: CarouselProps) {
       </div>
       <button
         type="button"
-        aria-label="Photos précédentes"
+        aria-label={prevLabel}
         onClick={() => scrollByAmount(-1)}
         style={navBtnStyle('left')}
       >
@@ -37,7 +39,7 @@ export function Carousel({ children, height = 280 }: CarouselProps) {
       </button>
       <button
         type="button"
-        aria-label="Photos suivantes"
+        aria-label={nextLabel}
         onClick={() => scrollByAmount(1)}
         style={navBtnStyle('right')}
       >

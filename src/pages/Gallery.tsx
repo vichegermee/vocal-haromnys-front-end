@@ -23,7 +23,7 @@ export function Gallery() {
       <h2 style={{ fontSize: 22, marginBottom: 17.6 }}>Photos</h2>
       <div style={{ display: 'flex', gap: 35.2, flexWrap: 'wrap', alignItems: 'stretch', marginBottom: 52.8 }}>
         <div style={{ flex: '3 1 480px', minWidth: 0 }}>
-          <Carousel height={PHOTO_SIZE}>
+          <Carousel height={PHOTO_SIZE} prevLabel="Photos précédentes" nextLabel="Photos suivantes">
             {photos.map((p) => (
               <div key={p.id} className="carousel-item" style={{ width: PHOTO_SIZE, height: PHOTO_SIZE }}>
                 <ImageSlot label={p.label} src={p.imageUrl} shape="rounded" radius={20} style={{ width: '100%', height: '100%' }} />

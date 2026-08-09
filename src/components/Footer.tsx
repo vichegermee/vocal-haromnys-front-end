@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchPartners, type Partner } from '../api/partners';
-import { ImageSlot } from './ImageSlot';
+import { Carousel } from './Carousel';
+
+const LOGO_HEIGHT = 100;
+
+function partnerLabel(fileName: string): string {
+  return fileName.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ');
+}
 
 export function Footer() {
   const [partners, setPartners] = useState<Partner[]>([]);
@@ -12,16 +18,37 @@ export function Footer() {
 
   return (
     <>
-      <section className="section-tight" style={{ background: 'var(--bg)', borderTop: '1px solid rgba(21,33,61,0.1)' }}>
-        <div className="container" style={{ textAlign: 'center' }}>
-          <h2 style={{ fontSize: 24, marginBottom: 26.4 }}>Nos partenaires</h2>
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 26.4 }}>
-            {partners.map((pt) => (
-              <ImageSlot key={pt.id} label={pt.label} src={pt.imageUrl} shape="rounded" radius={16} style={{ width: 140, height: 70 }} />
-            ))}
+      {partners.length > 0 && (
+        <section className="section-tight" style={{ background: 'var(--bg)', borderTop: '1px solid rgba(21,33,61,0.1)' }}>
+          <div className="container">
+            <h2 style={{ fontSize: 24, marginBottom: 26.4, textAlign: 'center' }}>Nos partenaires</h2>
+            <Carousel height={LOGO_HEIGHT} prevLabel="Partenaires précédents" nextLabel="Partenaires suivants">
+              {partners.map((pt) => (
+                <div
+                  key={pt.id}
+                  className="carousel-item"
+                  style={{
+                    height: LOGO_HEIGHT,
+                    padding: '13.2px 26.4px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: '#fff',
+                    border: '1px solid rgba(21,33,61,0.1)',
+                    borderRadius: 20,
+                  }}
+                >
+                  <img
+                    src={pt.imageUrl}
+                    alt={partnerLabel(pt.id)}
+                    style={{ maxHeight: '100%', maxWidth: 180, objectFit: 'contain' }}
+                  />
+                </div>
+              ))}
+            </Carousel>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <footer
         style={{

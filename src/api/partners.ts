@@ -1,12 +1,19 @@
-import { api } from './client';
-
 export type Partner = {
-  id: number;
-  label: string;
+  /** File name, used as the React key. */
+  id: string;
   imageUrl: string;
-  displayOrder: number;
 };
 
-export function fetchPartners(): Promise<Partner[]> {
-  return api.get<Partner[]>('/partners');
+/**
+ * Partner logos come from public/images/partners/ — NOT the backend — so
+ * that dropping a new logo file in that folder and redeploying is enough to
+ * make it appear, no code change needed. manifest.json in that same folder
+ * lists whatever is currently there; it's regenerated on every dev-server
+ * start/build by vite-plugin-partners-manifest.js.
+ */
+export async function fetchPartners(): Promise<Partner[]> {
+  const response = await fetch('/images/partners/manifest.json');
+  if (!response.ok) return [];
+  const files: string[] = await response.json();
+  return files.map((file) => ({ id: file, imageUrl: `/images/partners/${file}` }));
 }
