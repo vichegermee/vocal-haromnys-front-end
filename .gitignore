@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Raw media originals — not served, kept out of the repo
+source-media/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
