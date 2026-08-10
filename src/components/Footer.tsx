@@ -66,11 +66,7 @@ export function Footer() {
         >
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8.8, fontFamily: "'Caprasimo',system-ui,sans-serif", fontSize: 18, marginBottom: 8.8 }}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M9 18V5l11-2v13" stroke="#FFC857" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                <circle cx="6" cy="18" r="3" fill="#19B5A5" />
-                <circle cx="17" cy="16" r="3" fill="#FF6257" />
-              </svg>
+              <img src="/logo-vocal-or.png" alt="" width="67.2" height="67.2" style={{ objectFit: 'contain' }} />
               <span>
                 Vocal <span style={{ color: 'var(--teal)' }}>Harmony's</span>
               </span>

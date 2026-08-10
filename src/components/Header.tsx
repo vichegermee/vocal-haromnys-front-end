@@ -39,11 +39,7 @@ export function Header() {
           marginRight: 'auto',
         }}
       >
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-          <path d="M9 18V5l11-2v13" stroke="#FFC857" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-          <circle cx="6" cy="18" r="3" fill="#19B5A5" />
-          <circle cx="17" cy="16" r="3" fill="#FF6257" />
-        </svg>
+        <img src="/logo-vocal-or.png" alt="" width="72.8" height="72.8" style={{ objectFit: 'contain' }} />
         <span style={{ color: 'var(--text-on-dark)' }}>
           Vocal <span style={{ color: 'var(--teal)' }}>Harmony's</span>
         </span>
