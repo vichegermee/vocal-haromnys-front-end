@@ -241,3 +241,91 @@ button {
 .field-light ::placeholder {
   color: rgba(21, 33, 61, 0.45);
 }
+
+.nav-desktop {
+  display: flex;
+  align-items: center;
+  gap: 26.4px;
+  flex-wrap: wrap;
+}
+
+.nav-mobile-wrap {
+  display: none;
+}
+
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.hamburger-bar {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text-on-dark);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hamburger-btn.open .hamburger-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger-btn.open .hamburger-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn.open .hamburger-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.nav-mobile-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  background: rgba(21, 33, 61, 0.98);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255, 253, 248, 0.14);
+  padding: 8.8px var(--pad-x) 26.4px var(--pad-left);
+  max-height: calc(100vh - 100%);
+  overflow-y: auto;
+  animation: nav-mobile-panel-in 0.18s ease;
+}
+
+@keyframes nav-mobile-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .nav-desktop {
+    display: none;
+  }
+
+  .nav-mobile-wrap {
+    display: block;
+  }
+
+  .hamburger-btn {
+    display: flex;
+  }
+}
