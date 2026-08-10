@@ -54,6 +54,7 @@ export function Header() {
         <NavLink to="/a-propos" style={navLinkStyle}>À propos</NavLink>
         <NavLink to="/choristes" style={navLinkStyle}>Choristes</NavLink>
         <NavLink to="/evenements" style={navLinkStyle}>Événements</NavLink>
+        <NavLink to="/prestations" style={navLinkStyle}>Prestations</NavLink>
         <NavLink to="/boutique" style={navLinkStyle}>Boutique</NavLink>
         <NavLink to="/galerie" style={navLinkStyle}>Galerie</NavLink>
         <NavLink to="/contact" style={navLinkStyle}>Contact</NavLink>

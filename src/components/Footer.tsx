@@ -84,6 +84,7 @@ export function Footer() {
             <Link to="/a-propos" style={{ color: 'var(--text-on-dark)' }}>À propos</Link>
             <Link to="/choristes" style={{ color: 'var(--text-on-dark)' }}>Choristes</Link>
             <Link to="/evenements" style={{ color: 'var(--text-on-dark)' }}>Événements</Link>
+            <Link to="/prestations" style={{ color: 'var(--text-on-dark)' }}>Prestations</Link>
             <Link to="/boutique" style={{ color: 'var(--text-on-dark)' }}>Boutique</Link>
             <Link to="/galerie" style={{ color: 'var(--text-on-dark)' }}>Galerie</Link>
             <Link to="/contact" style={{ color: 'var(--text-on-dark)' }}>Contact</Link>

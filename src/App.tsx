@@ -5,6 +5,7 @@ import { Home } from './pages/Home';
 import { About } from './pages/About';
 import { Choristes } from './pages/Choristes';
 import { Events } from './pages/Events';
+import { Prestations } from './pages/Prestations';
 import { Shop } from './pages/Shop';
 import { Gallery } from './pages/Gallery';
 import { Contact } from './pages/Contact';
@@ -22,6 +23,7 @@ function App() {
             <Route path="/a-propos" element={<About />} />
             <Route path="/choristes" element={<Choristes />} />
             <Route path="/evenements" element={<Events />} />
+            <Route path="/prestations" element={<Prestations />} />
             <Route path="/boutique" element={<Shop />} />
             <Route path="/galerie" element={<Gallery />} />
             <Route path="/contact" element={<Contact />} />
