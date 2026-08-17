@@ -72,7 +72,7 @@ export function Footer() {
               </span>
             </div>
             <p style={{ fontSize: 13, opacity: 0.7, maxWidth: 280, margin: 0 }}>
-              Chorale gospel africaine · Paris, France
+              Chorale Afro-Gospel - Reims, France
             </p>
           </div>
           <nav style={{ display: 'flex', gap: 17.6, flexWrap: 'wrap', fontSize: 13 }}>

@@ -34,7 +34,7 @@ export function Home() {
           }}
         >
           <div style={{ maxWidth: 720, margin: '0 auto' }}>
-            <div className="eyebrow" style={{ color: 'var(--amber)' }}>Chorale gospel africaine · Paris</div>
+            <div className="eyebrow" style={{ color: 'var(--amber)' }}>Chorale Afro-Gospel - Reims</div>
             <h1 style={{ fontSize: 56, color: 'var(--text-on-dark)', lineHeight: 1.05, marginBottom: 8.8 }}>
               Vocal <span style={{ color: 'var(--teal)' }}>Harmony's</span>
             </h1>
