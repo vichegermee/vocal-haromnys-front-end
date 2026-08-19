@@ -1,25 +1,29 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ImageSlot } from '../components/ImageSlot';
+import { PhotoFadeCarousel } from '../components/PhotoFadeCarousel';
 import { fetchEvents, type EventItem } from '../api/events';
+import { fetchHomeBanners, type HomeBanner } from '../api/homeBanners';
 import { ACCENT_PAIR } from '../constants';
 
 const dateFormatter = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
 
 export function Home() {
   const [preview, setPreview] = useState<EventItem[]>([]);
+  const [banners, setBanners] = useState<HomeBanner[]>([]);
 
   useEffect(() => {
     fetchEvents('upcoming').then((events) => setPreview(events.slice(0, 3)));
+    fetchHomeBanners().then(setBanners);
   }, []);
 
   return (
     <>
       <section style={{ display: 'flex', flexDirection: 'column' }}>
         <div style={{ position: 'relative', height: '52vh', minHeight: 340 }}>
-          <ImageSlot
-            label="Photo du groupe en concert (plein cadre)"
-            src="/images/hero-concert-eglise.jpg"
+          <PhotoFadeCarousel
+            images={banners.map((b) => b.imageUrl)}
+            alt="Photo du groupe en concert (plein cadre)"
             shape="rect"
             style={{ width: '100%', height: '100%' }}
           />

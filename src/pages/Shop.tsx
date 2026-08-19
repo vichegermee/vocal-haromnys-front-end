@@ -110,7 +110,7 @@ export function Shop() {
         </div>
       )}
 
-      <div className="grid-auto" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 26.4 }}>
+      <div className="grid-auto" style={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 26.4 }}>
         {cds.map((cd, i) => (
           <div key={cd.id} className="card-dark" style={{ display: 'flex', flexDirection: 'column', gap: 8.8 }}>
             <ImageSlot label="Pochette d'album" src={cd.imageUrl} shape="rounded" radius={20} style={{ width: '100%', aspectRatio: '1/1' }} />

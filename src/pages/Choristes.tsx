@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ImageSlot } from '../components/ImageSlot';
 import { fetchChoristers, type Chorister } from '../api/choristers';
-import { ACCENT_PAIR, VOICE_PART_LABELS } from '../constants';
+import { ACCENT_PAIR } from '../constants';
 
 export function Choristes() {
   const [choristers, setChoristers] = useState<Chorister[]>([]);
@@ -20,10 +20,9 @@ export function Choristes() {
       <div className="grid-auto" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 26.4 }}>
         {choristers.map((c, i) => (
           <div key={c.id} className="card-dark" style={{ display: 'flex', flexDirection: 'column', gap: 8.8 }}>
-            <ImageSlot label="Photo du choriste" src={c.imageUrl} shape="rounded" radius={20} style={{ width: '100%', aspectRatio: '1/1' }} />
+            <ImageSlot label={`Photo de ${c.name}`} src={c.imageUrl} shape="rounded" radius={20} style={{ width: '100%', aspectRatio: '1/1' }} />
             <div style={{ fontFamily: "'Caprasimo',system-ui,sans-serif", fontSize: 17, marginTop: 8.8 }}>{c.name}</div>
-            <span className="badge" style={{ background: ACCENT_PAIR[i % 2] }}>{VOICE_PART_LABELS[c.voicePart]}</span>
-            <p style={{ fontSize: 13, opacity: 0.8, margin: '4.4px 0 0' }}>{c.description}</p>
+            {c.voicePart && <span className="badge" style={{ background: ACCENT_PAIR[i % 2] }}>{c.voicePart}</span>}
           </div>
         ))}
       </div>

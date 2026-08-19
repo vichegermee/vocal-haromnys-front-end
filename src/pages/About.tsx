@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ImageSlot } from '../components/ImageSlot';
+import { PhotoFadeCarousel } from '../components/PhotoFadeCarousel';
 import { fetchChoristers, type Chorister } from '../api/choristers';
-import { ACCENT_PAIR, VOICE_PART_LABELS } from '../constants';
+import { fetchAboutPhotos, type AboutPhoto } from '../api/aboutPhotos';
+import { ACCENT_PAIR } from '../constants';
 
 const guides = [
   { title: 'Foi', desc: 'Chaque chant est une prière ; la musique est notre manière de témoigner.' },
@@ -12,9 +14,11 @@ const guides = [
 
 export function About() {
   const [choristers, setChoristers] = useState<Chorister[]>([]);
+  const [photos, setPhotos] = useState<AboutPhoto[]>([]);
 
   useEffect(() => {
     fetchChoristers().then(setChoristers);
+    fetchAboutPhotos().then(setPhotos);
   }, []);
 
   const preview = choristers.slice(0, 4);
@@ -25,9 +29,9 @@ export function About() {
         <h6 className="eyebrow" style={{ color: 'var(--coral)' }}>À propos</h6>
         <h1 style={{ fontSize: 44, marginBottom: 44 }}>Notre histoire</h1>
         <div className="grid-auto" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))', gap: 44, alignItems: 'start' }}>
-          <ImageSlot
-            label="Photo des fondateurs ou d'une répétition"
-            src="/images/about-histoire-photo.jpg"
+          <PhotoFadeCarousel
+            images={photos.map((p) => p.imageUrl)}
+            alt="Photo des fondateurs ou d'une répétition"
             shape="rounded"
             radius={28}
             style={{ width: '100%', aspectRatio: '4/5' }}
@@ -100,9 +104,9 @@ export function About() {
           <div className="grid-auto" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))' }}>
             {preview.map((c, i) => (
               <div key={c.id} className="card-dark" style={{ padding: 17.6, display: 'flex', flexDirection: 'column', gap: 8.8 }}>
-                <ImageSlot label="Photo du choriste" src={c.imageUrl} shape="rounded" radius={20} style={{ width: '100%', aspectRatio: '1/1' }} />
+                <ImageSlot label={`Photo de ${c.name}`} src={c.imageUrl} shape="rounded" radius={20} style={{ width: '100%', aspectRatio: '1/1' }} />
                 <div style={{ fontFamily: "'Caprasimo',system-ui,sans-serif", fontSize: 16, marginTop: 4.4 }}>{c.name}</div>
-                <span className="badge" style={{ background: ACCENT_PAIR[i % 2] }}>{VOICE_PART_LABELS[c.voicePart]}</span>
+                {c.voicePart && <span className="badge" style={{ background: ACCENT_PAIR[i % 2] }}>{c.voicePart}</span>}
               </div>
             ))}
           </div>

@@ -9,7 +9,7 @@ export type Partner = {
  * that dropping a new logo file in that folder and redeploying is enough to
  * make it appear, no code change needed. manifest.json in that same folder
  * lists whatever is currently there; it's regenerated on every dev-server
- * start/build by vite-plugin-partners-manifest.js.
+ * start/build by vite-plugin-image-manifest.ts.
  */
 export async function fetchPartners(): Promise<Partner[]> {
   const response = await fetch('/images/partners/manifest.json');

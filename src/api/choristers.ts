@@ -5,7 +5,9 @@ export type VoicePart = 'SOPRANO' | 'ALTO' | 'TENOR' | 'BASSE';
 export type Chorister = {
   id: number;
   name: string;
-  voicePart: VoicePart;
+  /** Free text (e.g. "Soprano", "Manager") — not the 4-value VoicePart enum
+   * below, which is only for the "rejoindre la chorale" form. */
+  voicePart: string;
   description: string;
   imageUrl: string;
   displayOrder: number;
