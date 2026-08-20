@@ -18,7 +18,7 @@ export function Gallery() {
   return (
     <section className="section container">
       <h6 className="eyebrow" style={{ color: 'var(--coral)' }}>Galerie</h6>
-      <h1 style={{ fontSize: 44, marginBottom: 44 }}>Photos &amp; vidéos de nos concerts</h1>
+      <h1 style={{ fontSize: 44, marginBottom: 44 }}>Nos Photos &amp; vidéos</h1>
 
       <h2 style={{ fontSize: 22, marginBottom: 17.6 }}>Photos</h2>
       <div style={{ display: 'flex', gap: 35.2, flexWrap: 'wrap', alignItems: 'stretch', marginBottom: 52.8 }}>
