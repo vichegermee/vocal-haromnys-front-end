@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ImageSlot } from '../components/ImageSlot';
 import { PhotoFadeCarousel } from '../components/PhotoFadeCarousel';
-import { fetchChoristers, type Chorister } from '../api/choristers';
 import { fetchAboutPhotos, type AboutPhoto } from '../api/aboutPhotos';
-import { ACCENT_PAIR } from '../constants';
+import { fetchAdminTeam, type AdminTeamMember } from '../api/adminTeam';
 
 const guides = [
   { title: 'Foi', desc: 'Chaque chant est une prière ; la musique est notre manière de témoigner.' },
@@ -13,15 +12,13 @@ const guides = [
 ];
 
 export function About() {
-  const [choristers, setChoristers] = useState<Chorister[]>([]);
   const [photos, setPhotos] = useState<AboutPhoto[]>([]);
+  const [team, setTeam] = useState<AdminTeamMember[]>([]);
 
   useEffect(() => {
-    fetchChoristers().then(setChoristers);
     fetchAboutPhotos().then(setPhotos);
+    fetchAdminTeam().then(setTeam);
   }, []);
-
-  const preview = choristers.slice(0, 4);
 
   return (
     <>
@@ -98,15 +95,26 @@ export function About() {
       <section className="section-tight" style={{ background: 'var(--bg)', paddingBottom: 70 }}>
         <div className="container">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: 13.2, marginBottom: 35.2 }}>
-            <h2 style={{ fontSize: 28 }}>Nos choristes</h2>
+            <h2 style={{ fontSize: 28 }}>Notre équipe</h2>
             <Link to="/choristes" className="link-cta">Voir tous les choristes →</Link>
           </div>
+          <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 44 }}>
+            Guidée par une équipe coordinatrice bénévole, elle est à l’initiative de projets divers. Cette équipe favorise l’épanouissement et la découverte de ses choristes. Leur engagement continu reflète la vitalité de cette chorale dynamique du Grand Est.
+          </p>
           <div className="grid-auto" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))' }}>
-            {preview.map((c, i) => (
-              <div key={c.id} className="card-dark" style={{ padding: 17.6, display: 'flex', flexDirection: 'column', gap: 8.8 }}>
-                <ImageSlot label={`Photo de ${c.name}`} src={c.imageUrl} shape="rounded" radius={20} style={{ width: '100%', aspectRatio: '1/1' }} />
-                <div style={{ fontFamily: "'Caprasimo',system-ui,sans-serif", fontSize: 16, marginTop: 4.4 }}>{c.name}</div>
-                {c.voicePart && <span className="badge" style={{ background: ACCENT_PAIR[i % 2] }}>{c.voicePart}</span>}
+            {team.map((m) => (
+              <div key={m.id} className="card-dark" style={{ padding: 17.6, display: 'flex', flexDirection: 'column', gap: 8.8 }}>
+                <ImageSlot
+                  label={`Photo de ${m.firstName} ${m.lastName}`}
+                  src={`/images/choristers/${m.photoFilename}`}
+                  shape="rounded"
+                  radius={20}
+                  style={{ width: '100%', aspectRatio: '1/1' }}
+                />
+                <div style={{ fontFamily: "'Caprasimo',system-ui,sans-serif", fontSize: 16, marginTop: 4.4 }}>
+                  {m.firstName} {m.lastName}
+                </div>
+                <p style={{ fontSize: 13, opacity: 0.8, margin: 0 }}>{m.title}</p>
               </div>
             ))}
           </div>

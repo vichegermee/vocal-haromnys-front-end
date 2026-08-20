@@ -3,12 +3,14 @@ import { submitReservation } from '../api/reservations';
 import { submitJoinApplication } from '../api/joinApplications';
 import { ApiError } from '../api/client';
 import type { VoicePart } from '../api/choristers';
+import { CollapsibleSection } from '../components/CollapsibleSection';
 
 const pupitres: { value: VoicePart; label: string }[] = [
   { value: 'SOPRANO', label: 'Soprano' },
   { value: 'ALTO', label: 'Alto' },
   { value: 'TENOR', label: 'Ténor' },
   { value: 'BASSE', label: 'Basse' },
+  { value: 'Instrumentiste', label: 'Instrumentiste' }
 ];
 
 export function Contact() {
@@ -83,13 +85,13 @@ export function Contact() {
             <path d="M22 6l-10 7L2 6" />
             <path d="M2 6h20v12H2z" />
           </svg>
-          contact@vocalharmonys.fr
+          groupeharmonys1@gmail.com
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8.8 }}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6257" strokeWidth="2.75" strokeLinecap="round" strokeLinejoin="round">
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.99.36 1.96.68 2.89a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.19-1.25a2 2 0 0 1 2.11-.45c.93.32 1.9.55 2.89.68A2 2 0 0 1 22 16.92z" />
           </svg>
-          +33 1 23 45 67 89
+          +33 6 95 14 97 31
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8.8 }}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6257" strokeWidth="2.75" strokeLinecap="round" strokeLinejoin="round">
@@ -100,9 +102,8 @@ export function Contact() {
         </div>
       </div>
 
-      <div className="grid-auto" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(360px,1fr))', gap: 44 }}>
-        <div>
-          <h2 style={{ fontSize: 22, marginBottom: 17.6 }}>Réserver une prestation</h2>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 26.4 }}>
+        <CollapsibleSection title="Réserver une prestation">
           {reservationSent ? (
             <div className="confirm-box">
               Merci ! Votre demande de prestation a bien été envoyée — nous revenons vers vous rapidement.
@@ -129,7 +130,12 @@ export function Contact() {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 13.2 }}>
                 <div>
                   <label>Date souhaitée</label>
-                  <input name="desiredDate" type="date" required />
+                  <input
+                    name="desiredDate"
+                    type="date"
+                    required
+                    onClick={(e) => e.currentTarget.showPicker?.()}
+                  />
                 </div>
                 <div>
                   <label>Budget approximatif</label>
@@ -153,10 +159,9 @@ export function Contact() {
               </button>
             </form>
           )}
-        </div>
+        </CollapsibleSection>
 
-        <div>
-          <h2 style={{ fontSize: 22, marginBottom: 17.6 }}>Rejoindre la chorale</h2>
+        <CollapsibleSection title="Rejoindre la chorale">
           {joinSent ? (
             <div className="confirm-box">
               Merci pour votre message ! Nous vous recontacterons pour organiser une écoute.
@@ -228,7 +233,7 @@ export function Contact() {
               </button>
             </form>
           )}
-        </div>
+        </CollapsibleSection>
       </div>
     </section>
   );
