@@ -9,8 +9,7 @@ const pupitres: { value: VoicePart; label: string }[] = [
   { value: 'SOPRANO', label: 'Soprano' },
   { value: 'ALTO', label: 'Alto' },
   { value: 'TENOR', label: 'Ténor' },
-  { value: 'BASSE', label: 'Basse' },
-  { value: 'Instrumentiste', label: 'Instrumentiste' }
+  { value: 'BASSE', label: 'Basse' }
 ];
 
 export function Contact() {
