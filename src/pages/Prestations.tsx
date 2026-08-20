@@ -106,8 +106,9 @@ export function Prestations() {
         <h6 className="eyebrow" style={{ color: 'var(--amber)' }}>Ce que nous proposons</h6>
         <h1 style={{ fontSize: 44, marginBottom: 17.6 }}>Nos prestations</h1>
         <p style={{ fontSize: 16, opacity: 0.85, maxWidth: 640, marginBottom: 44 }}>
-          Concert, cérémonie, événement privé ou professionnel, engagement solidaire — Vocal Harmony's met sa voix
-          au service de vos moments. Choisissez une catégorie pour en savoir plus.
+          Faites vibrer vos événements avec Vocal Harmony’s.
+          Concert, cérémonie, événement privé ou professionnel, engagement solidaire… Nous mettons l’énergie, l’émotion et la puissance de l’Afro-Gospel au service de vos plus beaux moments.
+          Découvrez nos prestations et imaginez la vôtre.
         </p>
 
         <div className="grid-auto" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))' }}>
