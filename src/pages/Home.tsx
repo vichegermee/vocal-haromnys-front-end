@@ -44,7 +44,7 @@ export function Home() {
             </h1>
             <div style={{ width: 120, height: 6, borderRadius: 4, background: 'var(--amber)', marginBottom: 17.6 }} />
             <p style={{ fontSize: 18, color: 'var(--text-on-dark)', opacity: 0.9, maxWidth: 520, marginBottom: 26.4 }}>
-              Des voix venues d'Afrique et de sa diaspora, unies pour porter la foi, la joie et l'espérance en chant.
+              Des voix et des cultures réunies autour de l’Afro-Gospel, pour partager la joie, l’espérance et l’émotion en chant.
             </p>
             <div style={{ display: 'flex', gap: 13.2, flexWrap: 'wrap' }}>
               <Link to="/evenements" className="btn btn-coral">Voir nos événements</Link>

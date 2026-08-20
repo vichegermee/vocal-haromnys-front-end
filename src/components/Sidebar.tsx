@@ -54,8 +54,7 @@ export function Sidebar() {
           opacity: expanded ? 0 : 1,
           transition: 'opacity 0.2s ease',
           pointerEvents: 'none',
-        }}
-      >
+        }}>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <path
             d="M5 5h11a3 3 0 0 1 3 3v10.5a1.5 1.5 0 0 1-2.5 1.12L15 18H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"
