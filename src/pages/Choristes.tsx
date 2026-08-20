@@ -15,7 +15,8 @@ export function Choristes() {
       <h6 className="eyebrow" style={{ color: 'var(--teal)' }}>La chorale</h6>
       <h1 style={{ fontSize: 44, marginBottom: 13.2 }}>Nos choristes</h1>
       <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 44 }}>
-        Ils ont tous fait le choix de rejoindre la chorale, soit après avoir été présent à un concert, soit par l’intermédiaire d’un proche. Mais ce qui les anime toutes et tous, c’est le fait de participer à une aventure humaine extraordinaire et conviviale. Ce sont des choristes de bon niveau qui font partie de notre famille du chant traditionnel africain et gospel et qui ont la volonté de grandir artistiquement et vocalement.
+        Être choriste de Vocal Harmony’s, c’est avant tout un choix.
+        Celui de rejoindre un collectif, de partager sa voix, son énergie et sa personnalité, mais aussi de progresser et de vivre pleinement une aventure humaine et musicale. Venus d’horizons et de parcours différents, nos choristes ont choisi de faire de leurs différences une force et de leurs voix une harmonie.
       </p>
       <div className="grid-auto" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 26.4 }}>
         {choristers.map((c, i) => (

@@ -67,8 +67,7 @@ export function Home() {
             <h6 className="eyebrow" style={{ color: 'var(--teal)' }}>Notre mission</h6>
             <h2 style={{ fontSize: 32, marginBottom: 13.2 }}>Chanter pour rassembler</h2>
             <p style={{ opacity: 0.85, marginBottom: 22, maxWidth: 440 }}>
-              Depuis 2012, Vocal Harmony's mêle rythmes traditionnels africains et gospel contemporain pour créer des
-              moments de communion, de foi et de fête — sur scène comme dans les églises.
+              Vocal Harmony’s fait dialoguer les sonorités africaines et le gospel contemporain pour créer des moments de partage, d’émotion et de fête, sur scène comme lors de tous les événements qui nous réunissent.
             </p>
             <Link to="/a-propos" className="link-cta">En savoir plus sur notre histoire →</Link>
           </div>

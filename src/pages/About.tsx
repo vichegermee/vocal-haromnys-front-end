@@ -6,9 +6,9 @@ import { fetchAboutPhotos, type AboutPhoto } from '../api/aboutPhotos';
 import { fetchAdminTeam, type AdminTeamMember } from '../api/adminTeam';
 
 const guides = [
-  { title: 'Foi', desc: 'Chaque chant est une prière ; la musique est notre manière de témoigner.' },
-  { title: 'Unité', desc: 'Des origines et des parcours différents, une seule voix quand nous chantons.' },
-  { title: 'Excellence', desc: 'Des répétitions exigeantes, au service d’un chant offert avec soin.' },
+  { title: 'Inspiration', desc: 'Puiser dans la spiritualité du Gospel pour transmettre, à travers nos voix, des messages d’espérance, de joie et d’amour.' },
+  { title: 'Unité', desc: 'Des origines, des cultures et des parcours différents, une même voix lorsque nous chantons.' },
+  { title: 'Excellence', desc: 'Travailler chaque voix et chaque harmonie avec exigence pour offrir des prestations sincères, vibrantes et de qualité.' },
 ];
 
 export function About() {
@@ -73,9 +73,7 @@ export function About() {
         <div className="container" style={{ maxWidth: 900, textAlign: 'center' }}>
           <h2 style={{ fontSize: 30, marginBottom: 17.6 }}>Notre mission</h2>
           <p style={{ fontSize: 18, opacity: 0.85 }}>
-            Porter la foi et la culture africaine à travers un gospel vivant, transmettre la joie de chanter
-            ensemble, et créer, à chaque prestation, un moment de communion accessible à tous — croyants ou simples
-            amoureux de belles voix.
+            Faire de chaque voix une rencontre, de chaque chant un partage et de chaque prestation un moment unique où cultures, émotions et énergie se rejoignent autour de l’Afro-Gospel.
           </p>
         </div>
       </section>
