@@ -4,13 +4,14 @@ type CollapsibleSectionProps = {
   title: string;
   defaultOpen?: boolean;
   children: ReactNode;
+  id?: string;
 };
 
-export function CollapsibleSection({ title, defaultOpen = true, children }: CollapsibleSectionProps) {
+export function CollapsibleSection({ title, defaultOpen = true, children, id }: CollapsibleSectionProps) {
   const [open, setOpen] = useState(defaultOpen);
 
   return (
-    <div style={{ border: '1px solid rgba(21,33,61,0.14)', borderRadius: 24, overflow: 'hidden' }}>
+    <div id={id} style={{ border: '1px solid rgba(21,33,61,0.14)', borderRadius: 24, overflow: 'hidden', scrollMarginTop: 96 }}>
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}

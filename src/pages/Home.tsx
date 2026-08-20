@@ -20,11 +20,18 @@ export function Home() {
   return (
     <>
       <section style={{ display: 'flex', flexDirection: 'column' }}>
-        <div style={{ position: 'relative', height: '52vh', minHeight: 340 }}>
+        <div className="hero-banner" style={{ position: 'relative' }}>
           <PhotoFadeCarousel
             images={banners.map((b) => b.imageUrl)}
             alt="Photo du groupe en concert (plein cadre)"
             shape="rect"
+            objectPosition="center 20%"
+            objectPositions={{
+              '/images/home/home-4.jpg': 'center 60%',
+              '/images/home/home-5.jpg': 'center 45%',
+              '/images/home/home-10.jpg': 'center 35%',
+              '/images/home/home-11.jpg': 'center 35%',
+            }}
             style={{ width: '100%', height: '100%' }}
           />
         </div>
@@ -48,7 +55,7 @@ export function Home() {
             </p>
             <div style={{ display: 'flex', gap: 13.2, flexWrap: 'wrap' }}>
               <Link to="/evenements" className="btn btn-coral">Voir nos événements</Link>
-              <Link to="/contact" className="btn btn-teal">Nous rejoindre</Link>
+              <Link to="/contact#rejoindre" className="btn btn-teal">Nous rejoindre</Link>
             </div>
           </div>
         </div>

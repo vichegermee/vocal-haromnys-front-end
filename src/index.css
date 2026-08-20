@@ -29,6 +29,11 @@ body {
   font-family: 'Figtree', system-ui, sans-serif;
 }
 
+.hero-banner {
+  height: 52vh;
+  min-height: 340px;
+}
+
 h1,
 h2,
 h3,
@@ -327,5 +332,41 @@ button {
 
   .hamburger-btn {
     display: flex;
+  }
+}
+
+/* Taller hero banner on larger screens only, so less of each photo's top
+   gets cropped by object-fit: cover — phones keep the original 52vh. */
+@media (min-width: 901px) {
+  .hero-banner {
+    height: 66vh;
+    min-height: 420px;
+  }
+}
+
+.news-sidebar {
+  --news-collapsed-width: 52px;
+  --news-collapsed-height: 140px;
+  --news-panel-width: 352.8px;
+}
+
+.news-sidebar-label {
+  writing-mode: vertical-rl;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .news-sidebar {
+    --news-collapsed-width: 40px;
+    --news-collapsed-height: 108px;
+    --news-panel-width: 260px;
+  }
+
+  .news-sidebar-label {
+    font-size: 9px;
   }
 }

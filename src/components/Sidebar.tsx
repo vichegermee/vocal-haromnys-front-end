@@ -9,9 +9,6 @@ function formatEventDate(isoDate: string): string {
   return dateFormatter.format(new Date(isoDate));
 }
 
-const COLLAPSED_SIZE = 52;
-const PANEL_WIDTH = 352.8;
-
 export function Sidebar() {
   const [events, setEvents] = useState<EventItem[]>([]);
   const [expanded, setExpanded] = useState(false);
@@ -22,6 +19,7 @@ export function Sidebar() {
 
   return (
     <aside
+      className="news-sidebar"
       onMouseEnter={() => setExpanded(true)}
       onMouseLeave={() => setExpanded(false)}
       style={{
@@ -29,26 +27,26 @@ export function Sidebar() {
         top: 90,
         right: 0,
         zIndex: 30,
-        width: expanded ? PANEL_WIDTH : COLLAPSED_SIZE,
+        width: expanded ? 'var(--news-panel-width)' : 'var(--news-collapsed-width)',
+        height: expanded ? 'calc(100vh - 110px)' : 'var(--news-collapsed-height)',
         maxHeight: 'calc(100vh - 110px)',
         overflow: 'hidden',
         borderRadius: '24px 0 0 24px',
         background: 'var(--bg)',
         boxShadow: expanded ? '-8px 8px 32px rgba(21,33,61,0.2)' : '0 1px 2px rgba(21,33,61,0.14)',
-        transition: 'width 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.35s ease',
+        transition: 'width 0.35s cubic-bezier(0.4,0,0.2,1), height 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.35s ease',
       }}
     >
       <div
         aria-hidden={expanded}
         style={{
           position: 'absolute',
-          top: 0,
-          right: 0,
-          width: COLLAPSED_SIZE,
-          height: COLLAPSED_SIZE,
+          inset: 0,
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+          gap: 8.8,
           background: 'var(--coral)',
           borderRadius: '24px 0 0 24px',
           opacity: expanded ? 0 : 1,
@@ -65,11 +63,12 @@ export function Sidebar() {
           />
           <path d="M7 9.5h8M7 13h5" stroke="var(--text-on-dark)" strokeWidth="1.6" strokeLinecap="round" />
         </svg>
+        <span className="news-sidebar-label" style={{ color: 'var(--text-on-dark)' }}>Actualités</span>
       </div>
 
       <div
         style={{
-          width: PANEL_WIDTH,
+          width: 'var(--news-panel-width)',
           padding: '35.2px 26.4px',
           maxHeight: 'calc(100vh - 110px)',
           overflowY: 'auto',

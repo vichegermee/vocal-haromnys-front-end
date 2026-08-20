@@ -153,7 +153,7 @@ export function Contact() {
           )}
         </CollapsibleSection>
 
-        <CollapsibleSection title="Rejoindre la chorale">
+        <CollapsibleSection id="rejoindre" title="Rejoindre la chorale">
           {joinSent ? (
             <div className="confirm-box">
               Merci pour votre message ! Nous vous recontacterons pour organiser une écoute.
