@@ -9,12 +9,6 @@ function formatEventDate(isoDate: string): string {
   return dateFormatter.format(new Date(isoDate));
 }
 
-/** The overview grid gets a one-line teaser; the full text lives in the "En détail" section below. */
-function firstSentence(text: string): string {
-  const end = text.indexOf('. ');
-  return end === -1 ? text : text.slice(0, end + 1);
-}
-
 export function Events() {
   const [upcoming, setUpcoming] = useState<EventItem[]>([]);
   const [past, setPast] = useState<EventItem[]>([]);
@@ -36,7 +30,7 @@ export function Events() {
             <span className="badge" style={{ background: ACCENT_PAIR[i % 2] }}>{formatEventDate(ev.eventDate)}</span>
             <div style={{ fontFamily: "'Caprasimo',system-ui,sans-serif", fontSize: 19 }}>{ev.title}</div>
             <div style={{ fontSize: 13, opacity: 0.7 }}>{ev.location}</div>
-            <p style={{ fontSize: 13, opacity: 0.8, margin: '4.4px 0 0' }}>{ev.description && firstSentence(ev.description)}</p>
+            <p style={{ fontSize: 13, opacity: 0.8, margin: '4.4px 0 0' }}>{ev.description}</p>
           </div>
         ))}
       </div>
@@ -100,8 +94,8 @@ export function Events() {
                 </span>
                 <h3 style={{ fontSize: 22, color: 'var(--text-on-dark)', margin: '8.8px 0 4.4px' }}>{ev.title}</h3>
                 <div style={{ fontSize: 13, color: 'var(--text-on-dark)', opacity: 0.7, marginBottom: 13.2 }}>{ev.location}</div>
-                <p style={{ fontSize: 14, color: 'var(--text-on-dark)', opacity: 0.85, margin: 0, lineHeight: 1.6, maxWidth: 640 }}>
-                  {ev.description}
+                <p style={{ fontSize: 14, color: 'var(--text-on-dark)', opacity: 0.85, margin: 0, lineHeight: 1.6, maxWidth: 640, whiteSpace: 'pre-line' }}>
+                  {ev.detailedDescription}
                 </p>
               </div>
             ))}

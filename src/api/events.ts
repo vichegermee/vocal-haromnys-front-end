@@ -6,6 +6,7 @@ export type EventItem = {
   eventDate: string;
   location: string;
   description: string | null;
+  detailedDescription: string | null;
   past: boolean;
 };
 
