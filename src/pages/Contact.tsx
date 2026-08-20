@@ -127,19 +127,12 @@ export function Contact() {
                 <input name="eventType" required placeholder="Culte, mariage, festival…" />
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 13.2 }}>
-                <div>
-                  <label>Date souhaitée</label>
-                  <input
-                    name="desiredDate"
-                    type="date"
-                    required
-                    onClick={(e) => e.currentTarget.showPicker?.()}
-                  />
-                </div>
-                <div>
-                  <label>Budget approximatif</label>
-                  <input name="budget" placeholder="Optionnel" />
-                </div>
+                <label>Date souhaitée</label>
+                <input name="desiredDate"
+                  type="date"
+                  required
+                  onClick={(e) => e.currentTarget.showPicker?.()}
+                />
               </div>
               <div>
                 <label>Lieu</label>
