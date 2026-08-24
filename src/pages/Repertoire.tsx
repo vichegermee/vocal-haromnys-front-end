@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth';
 import { fetchSongs, type Song, type TrackType } from '../api/songs';
 
@@ -39,6 +39,11 @@ export function Repertoire() {
         <div>
           <h6 className="eyebrow" style={{ color: 'var(--amber)' }}>Espace membre</h6>
           <h1 style={{ fontSize: 36 }}>Répertoire de répétition</h1>
+          {currentMember?.role === 'ADMIN' && (
+            <Link to="/admin" className="link-cta" style={{ display: 'inline-block', marginTop: 8.8 }}>
+              Tableau de bord admin →
+            </Link>
+          )}
         </div>
         <div style={{ textAlign: 'right' }}>
           <div style={{ fontSize: 13, opacity: 0.7 }}>Connecté(e) en tant que</div>

@@ -4,6 +4,7 @@ import { ImageSlot } from '../components/ImageSlot';
 import { PhotoFadeCarousel } from '../components/PhotoFadeCarousel';
 import { fetchEvents, type EventItem } from '../api/events';
 import { fetchHomeBanners, type HomeBanner } from '../api/homeBanners';
+import { JoinChoirCta } from '../components/JoinChoirCta';
 import { ACCENT_PAIR } from '../constants';
 
 const dateFormatter = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
@@ -104,9 +105,13 @@ export function Home() {
         </div>
       </section>
 
+      <section className="section-tight container">
+        <JoinChoirCta />
+      </section>
+
       <section className="section container" style={{ background: 'var(--navy)' }}>
         <p style={{ maxWidth: 680, margin: '0 auto', textAlign: 'center', fontFamily: "'Caprasimo',system-ui,sans-serif", fontSize: 24, color: 'var(--text-on-dark)', lineHeight: 1.4 }}>
-          « Chaque concert est une prière chantée à plusieurs voix — c'est ce qui nous rassemble depuis le premier jour. »
+          « Chaque concert porte un message d’espérance, de joie et de partage, chanté d’une seule voix, il nous rassemble depuis le premier jour. »
         </p>
         <p style={{ textAlign: 'center', marginTop: 17.6, fontSize: 13, color: 'var(--text-on-dark)', opacity: 0.75 }}>
           — Les choristes de Vocal Harmony's

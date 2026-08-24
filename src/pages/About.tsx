@@ -4,6 +4,8 @@ import { ImageSlot } from '../components/ImageSlot';
 import { PhotoFadeCarousel } from '../components/PhotoFadeCarousel';
 import { fetchAboutPhotos, type AboutPhoto } from '../api/aboutPhotos';
 import { fetchAdminTeam, type AdminTeamMember } from '../api/adminTeam';
+import { fetchSupportTeam, type SupportTeamMember } from '../api/supportTeam';
+import { JoinChoirCta } from '../components/JoinChoirCta';
 
 const guides = [
   { title: 'Inspiration', desc: 'Puiser dans la spiritualité du Gospel pour transmettre, à travers nos voix, des messages d’espérance, de joie et d’amour.' },
@@ -14,10 +16,12 @@ const guides = [
 export function About() {
   const [photos, setPhotos] = useState<AboutPhoto[]>([]);
   const [team, setTeam] = useState<AdminTeamMember[]>([]);
+  const [supportTeam, setSupportTeam] = useState<SupportTeamMember[]>([]);
 
   useEffect(() => {
     fetchAboutPhotos().then(setPhotos);
     fetchAdminTeam().then(setTeam);
+    fetchSupportTeam().then(setSupportTeam);
   }, []);
 
   return (
@@ -99,7 +103,7 @@ export function About() {
           <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 44 }}>
             Guidée par une équipe coordinatrice bénévole, elle est à l’initiative de projets divers. Cette équipe favorise l’épanouissement et la découverte de ses choristes. Leur engagement continu reflète la vitalité de cette chorale dynamique du Grand Est.
           </p>
-          <div className="grid-auto" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))' }}>
+          <div className="grid-auto" style={{ gridTemplateColumns: 'repeat(auto-fill, 220px)' }}>
             {team.map((m) => (
               <div key={m.id} className="card-dark" style={{ padding: 17.6, display: 'flex', flexDirection: 'column', gap: 8.8 }}>
                 <ImageSlot
@@ -117,6 +121,33 @@ export function About() {
             ))}
           </div>
         </div>
+      </section>
+
+      <section className="section-tight" style={{ background: 'var(--bg)', paddingBottom: 70 }}>
+        <div className="container">
+          <h2 style={{ fontSize: 28, marginBottom: 35.2 }}>L’équipe d’accompagnement</h2>
+          <div className="grid-auto" style={{ gridTemplateColumns: 'repeat(auto-fill, 220px)' }}>
+            {supportTeam.map((m) => (
+              <div key={m.id} className="card-dark" style={{ padding: 17.6, display: 'flex', flexDirection: 'column', gap: 8.8 }}>
+                <ImageSlot
+                  label={`Photo de ${m.firstName} ${m.lastName}`}
+                  src={m.photoFilename ? `/images/choristers/${m.photoFilename}` : undefined}
+                  shape="rounded"
+                  radius={20}
+                  style={{ width: '100%', aspectRatio: '1/1' }}
+                />
+                <div style={{ fontFamily: "'Caprasimo',system-ui,sans-serif", fontSize: 16, marginTop: 4.4 }}>
+                  {m.firstName} {m.lastName}
+                </div>
+                <p style={{ fontSize: 13, opacity: 0.8, margin: 0 }}>{m.title}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section container" style={{ paddingTop: 0 }}>
+        <JoinChoirCta />
       </section>
     </>
   );

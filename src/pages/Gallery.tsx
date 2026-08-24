@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ImageSlot } from '../components/ImageSlot';
 import { Carousel } from '../components/Carousel';
+import { JoinChoirCta } from '../components/JoinChoirCta';
 import { fetchGalleryPhotos, fetchGalleryVideos, type GalleryPhoto, type GalleryVideo } from '../api/gallery';
 
 const PHOTO_SIZE = 280;
@@ -18,7 +19,7 @@ export function Gallery() {
   return (
     <section className="section container">
       <h6 className="eyebrow" style={{ color: 'var(--coral)' }}>Galerie</h6>
-      <h1 style={{ fontSize: 44, marginBottom: 44 }}>Nos Photos &amp; vidéos</h1>
+      <h1 style={{ fontSize: 44, marginBottom: 44 }}>Nos Photos &amp; clips</h1>
 
       <h2 style={{ fontSize: 22, marginBottom: 17.6 }}>Photos</h2>
       <div style={{ display: 'flex', gap: 35.2, flexWrap: 'wrap', alignItems: 'stretch', marginBottom: 52.8 }}>
@@ -42,7 +43,12 @@ export function Gallery() {
         </div>
       </div>
 
-      <h2 style={{ fontSize: 22, marginBottom: 17.6 }}>Vidéos</h2>
+      <h2 style={{ fontSize: 22, marginBottom: 17.6 }}>Clips</h2>
+      <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 26.4, maxWidth: 640 }}>
+        Une autre façon de découvrir l’univers de Vocal Harmony’s. Retrouvez nos clips issus de notre premier
+        album, ainsi que notre clip de Noël Joy to the World : des images, des voix et toute l’énergie de
+        l’Afro-Gospel.
+      </p>
       <div className="grid-auto" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))' }}>
         {videos.map((v) => {
           const isPlaying = playingVideo === v.id;
@@ -87,6 +93,10 @@ export function Gallery() {
             </div>
           );
         })}
+      </div>
+
+      <div style={{ marginTop: 52.8 }}>
+        <JoinChoirCta />
       </div>
     </section>
   );

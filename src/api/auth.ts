@@ -4,6 +4,7 @@ export type Member = {
   id: number;
   username: string;
   fullName: string;
+  email: string | null;
   role: string;
 };
 

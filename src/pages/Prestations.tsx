@@ -154,6 +154,7 @@ export function Prestations() {
               <video
                 controls
                 preload="metadata"
+                poster={`/images/video/${file.replace(/\.mp4$/, '-poster.jpg')}`}
                 style={{ width: '100%', aspectRatio: '16/9', borderRadius: 20, background: '#000', display: 'block' }}
               >
                 <source src={`/images/video/${file}`} type="video/mp4" />

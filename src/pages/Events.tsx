@@ -9,14 +9,37 @@ function formatEventDate(isoDate: string): string {
   return dateFormatter.format(new Date(isoDate));
 }
 
+const PAST_PAGE_SIZE = 5;
+
+function pageArrowStyle(disabled: boolean): React.CSSProperties {
+  return {
+    width: 32,
+    height: 32,
+    borderRadius: '50%',
+    border: 'none',
+    background: disabled ? 'rgba(21,33,61,0.08)' : 'var(--navy)',
+    color: disabled ? 'rgba(21,33,61,0.3)' : 'var(--text-on-dark)',
+    fontSize: 16,
+    lineHeight: 1,
+    cursor: disabled ? 'default' : 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  };
+}
+
 export function Events() {
   const [upcoming, setUpcoming] = useState<EventItem[]>([]);
   const [past, setPast] = useState<EventItem[]>([]);
+  const [pastPage, setPastPage] = useState(0);
 
   useEffect(() => {
     fetchEvents('upcoming').then(setUpcoming);
     fetchEvents('past').then(setPast);
   }, []);
+
+  const pastPageCount = Math.max(1, Math.ceil(past.length / PAST_PAGE_SIZE));
+  const pastPageItems = past.slice(pastPage * PAST_PAGE_SIZE, pastPage * PAST_PAGE_SIZE + PAST_PAGE_SIZE);
 
   return (
     <section className="section container">
@@ -58,7 +81,7 @@ export function Events() {
           </tr>
         </thead>
         <tbody>
-          {past.map((ev) => (
+          {pastPageItems.map((ev) => (
             <tr key={ev.id}>
               <td style={{ padding: 8.8, borderBottom: '1px solid rgba(21,33,61,0.08)' }}>{formatEventDate(ev.eventDate)}</td>
               <td style={{ padding: 8.8, borderBottom: '1px solid rgba(21,33,61,0.08)' }}>{ev.title}</td>
@@ -67,6 +90,30 @@ export function Events() {
           ))}
         </tbody>
       </table>
+
+      {pastPageCount > 1 && (
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 17.6, marginBottom: 52.8 }}>
+          <button
+            type="button"
+            onClick={() => setPastPage((p) => Math.max(0, p - 1))}
+            disabled={pastPage === 0}
+            aria-label="Prestations plus récentes"
+            style={pageArrowStyle(pastPage === 0)}
+          >
+            ‹
+          </button>
+          <span style={{ fontSize: 13, opacity: 0.65 }}>{pastPage + 1} / {pastPageCount}</span>
+          <button
+            type="button"
+            onClick={() => setPastPage((p) => Math.min(pastPageCount - 1, p + 1))}
+            disabled={pastPage >= pastPageCount - 1}
+            aria-label="Prestations plus anciennes"
+            style={pageArrowStyle(pastPage >= pastPageCount - 1)}
+          >
+            ›
+          </button>
+        </div>
+      )}
 
       <div className="card-dark" style={{ padding: 35.2, borderRadius: 32, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 22, flexWrap: 'wrap' }}>
         <div>

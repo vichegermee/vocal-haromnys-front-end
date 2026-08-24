@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ImageSlot } from '../components/ImageSlot';
+import { JoinChoirCta } from '../components/JoinChoirCta';
 import { fetchChoristers, type Chorister } from '../api/choristers';
 import { ACCENT_PAIR } from '../constants';
 
@@ -65,6 +66,8 @@ export function Choristes() {
           </div>
         </div>
       ))}
+
+      <JoinChoirCta />
     </section>
   );
 }

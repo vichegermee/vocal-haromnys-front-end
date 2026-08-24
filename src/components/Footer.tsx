@@ -88,18 +88,39 @@ export function Footer() {
             <Link to="/connexion" style={{ color: 'var(--text-on-dark)' }}>Espace membre</Link>
           </nav>
           <div style={{ display: 'flex', gap: 13.2 }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFDF8" strokeWidth="2.75" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="5" />
-              <circle cx="12" cy="12" r="4" />
-              <circle cx="17.5" cy="6.5" r="0.6" fill="#FFFDF8" />
-            </svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFDF8" strokeWidth="2.75" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-            </svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFDF8" strokeWidth="2.75" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M22.5 6.2s-.2-1.6-.9-2.3c-.8-.9-1.7-.9-2.2-1C16 2.5 12 2.5 12 2.5h0s-4 0-7.4.4c-.5.1-1.4.1-2.2 1-.7.7-.9 2.3-.9 2.3S1.2 8 1.2 9.8v1.5c0 1.8.3 3.6.3 3.6s.2 1.6.9 2.3c.8.9 1.9.9 2.4 1 1.7.2 7.2.4 7.2.4s4 0 7.4-.4c.5-.1 1.4-.1 2.2-1 .7-.7.9-2.3.9-2.3s.3-1.8.3-3.6V9.8c0-1.8-.3-3.6-.3-3.6z" />
-              <polygon points="9.8,8.1 15.8,11.5 9.8,14.9" />
-            </svg>
+            <a
+              href="https://www.instagram.com/groupevocalharmonys?igsh=MzVoN2NpZHgzN20x"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Vocal Harmony's sur Instagram"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFDF8" strokeWidth="2.75" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="0.6" fill="#FFFDF8" />
+              </svg>
+            </a>
+            <a
+              href="https://www.facebook.com/share/1ALM4ckR9T/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Vocal Harmony's sur Facebook"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFDF8" strokeWidth="2.75" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+              </svg>
+            </a>
+            <a
+              href="https://www.tiktok.com/@groupevocalharmonys?_t=ZN-8uHEPSzmXdG&_r=1"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Vocal Harmony's sur TikTok"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFDF8" strokeWidth="2.75" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M16.5 2v11.5a3.5 3.5 0 1 1-3.5-3.5" />
+                <path d="M16.5 2c.4 2.6 2.2 4.5 4.8 4.9" />
+              </svg>
+            </a>
           </div>
         </div>
         <p style={{ textAlign: 'center', fontSize: 12, opacity: 0.5, marginTop: 35.2 }}>

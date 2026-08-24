@@ -12,6 +12,7 @@ import { Contact } from './pages/Contact';
 import { Donations } from './pages/Donations';
 import { Login } from './pages/Login';
 import { Repertoire } from './pages/Repertoire';
+import { Admin } from './pages/Admin';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/dons" element={<Donations />} />
             <Route path="/connexion" element={<Login />} />
             <Route path="/repertoire" element={<Repertoire />} />
+            <Route path="/admin" element={<Admin />} />
           </Route>
         </Routes>
       </BrowserRouter>

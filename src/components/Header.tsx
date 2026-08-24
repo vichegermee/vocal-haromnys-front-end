@@ -16,7 +16,8 @@ const mobileNavLinkStyle = ({ isActive }: { isActive: boolean }): React.CSSPrope
 });
 
 export function Header() {
-  const { loggedIn } = useAuth();
+  const { loggedIn, currentMember } = useAuth();
+  const isAdmin = currentMember?.role === 'ADMIN';
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const closeMenu = () => setMenuOpen(false);
@@ -92,8 +93,12 @@ export function Header() {
           <NavLink to="/galerie" style={navLinkStyle}>Galerie</NavLink>
           <NavLink to="/contact" style={navLinkStyle}>Contact</NavLink>
           <NavLink to={loggedIn ? '/repertoire' : '/connexion'} style={navLinkStyle}>Espace membre</NavLink>
+          {isAdmin && <NavLink to="/admin" style={navLinkStyle}>Admin</NavLink>}
         </nav>
 
+        <NavLink to="/contact#rejoindre" className="btn btn-teal btn-sm">
+          Nous rejoindre
+        </NavLink>
         <NavLink to="/dons" className="btn btn-amber btn-sm">
           Faire un don
         </NavLink>
@@ -124,11 +129,22 @@ export function Header() {
             <NavLink to="/galerie" style={mobileNavLinkStyle} onClick={closeMenu}>Galerie</NavLink>
             <NavLink to="/contact" style={mobileNavLinkStyle} onClick={closeMenu}>Contact</NavLink>
             <NavLink to={loggedIn ? '/repertoire' : '/connexion'} style={mobileNavLinkStyle} onClick={closeMenu}>Espace membre</NavLink>
+            {isAdmin && (
+              <NavLink to="/admin" style={mobileNavLinkStyle} onClick={closeMenu}>Admin</NavLink>
+            )}
+            <NavLink
+              to="/contact#rejoindre"
+              className="btn btn-teal"
+              onClick={closeMenu}
+              style={{ textAlign: 'center', marginTop: 13.2 }}
+            >
+              Nous rejoindre
+            </NavLink>
             <NavLink
               to="/dons"
               className="btn btn-amber"
               onClick={closeMenu}
-              style={{ textAlign: 'center', marginTop: 13.2 }}
+              style={{ textAlign: 'center', marginTop: 8.8 }}
             >
               Faire un don
             </NavLink>

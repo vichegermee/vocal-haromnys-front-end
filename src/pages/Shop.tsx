@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ImageSlot } from '../components/ImageSlot';
 import { fetchCds, type Cd } from '../api/cds';
-import { createCdOrderCheckoutSession, fetchCdOrderSummary, type CdOrderSummary } from '../api/cdOrders';
-import { ApiError } from '../api/client';
-import { ACCENT_PAIR, SHIPPING_OPTIONS, type ShippingOptionValue } from '../constants';
+import { fetchCdOrderSummary, type CdOrderSummary } from '../api/cdOrders';
+import { ACCENT_PAIR } from '../constants';
 
 const priceFormatter = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' });
+
+// "Commander" sends buyers straight to the album on Amazon Music.
+const AMAZON_ALBUM_URL =
+  'https://amazon.fr/music/player/albums/B0BS68DJRC?marketplaceId=A13V1IB3VIYZZH&musicTerritory=FR&ref=dm_sh_DUGIClKMnzZdrwBMmG7hNsVd8';
 
 export function Shop() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -14,11 +17,6 @@ export function Shop() {
   const [orderCanceled, setOrderCanceled] = useState(false);
 
   const [cds, setCds] = useState<Cd[]>([]);
-  const [activeCd, setActiveCd] = useState<Cd | null>(null);
-  const [quantity, setQuantity] = useState(1);
-  const [shippingOption, setShippingOption] = useState<ShippingOptionValue>('STANDARD');
-  const [error, setError] = useState<string | null>(null);
-  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     fetchCds().then(setCds);
@@ -36,53 +34,12 @@ export function Shop() {
     }
   }, []);
 
-  const shippingCost = SHIPPING_OPTIONS.find((o) => o.value === shippingOption)?.cost ?? 0;
-  const total = activeCd ? activeCd.price * quantity + shippingCost : 0;
-
-  function openDialog(cd: Cd) {
-    setActiveCd(cd);
-    setQuantity(1);
-    setShippingOption('STANDARD');
-    setError(null);
-  }
-
-  function closeDialog() {
-    setActiveCd(null);
-  }
-
-  async function submitOrder(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (!activeCd) return;
-    const formData = new FormData(e.currentTarget);
-    setSubmitting(true);
-    setError(null);
-    try {
-      const { checkoutUrl } = await createCdOrderCheckoutSession({
-        cdId: activeCd.id,
-        customerName: String(formData.get('customerName') ?? ''),
-        customerEmail: String(formData.get('customerEmail') ?? ''),
-        customerPhone: String(formData.get('customerPhone') ?? ''),
-        quantity,
-        shippingStreet: String(formData.get('shippingStreet') ?? ''),
-        shippingPostalCode: String(formData.get('shippingPostalCode') ?? ''),
-        shippingCity: String(formData.get('shippingCity') ?? ''),
-        shippingCountry: String(formData.get('shippingCountry') ?? ''),
-        shippingOption,
-        message: String(formData.get('message') ?? '') || undefined,
-      });
-      window.location.href = checkoutUrl;
-    } catch (err) {
-      setError(err instanceof ApiError ? err.message : 'Une erreur est survenue, réessayez.');
-      setSubmitting(false);
-    }
-  }
-
   return (
     <section className="section container">
       <h6 className="eyebrow" style={{ color: 'var(--coral)' }}>Boutique</h6>
       <h1 style={{ fontSize: 44, marginBottom: 13.2 }}>Nos albums</h1>
       <p style={{ fontSize: 15, opacity: 0.75, marginBottom: 26.4, maxWidth: 600 }}>
-        Choisissez votre album, votre mode de livraison, et réglez en ligne en toute sécurité via Stripe.
+        Retrouvez et commandez notre album sur Amazon Music.
       </p>
 
       {orderSummary && (
@@ -121,98 +78,19 @@ export function Shop() {
               <span style={{ fontFamily: "'Caprasimo',system-ui,sans-serif", fontSize: 16, color: 'var(--amber)' }}>
                 {priceFormatter.format(cd.price)}
               </span>
-              <button
-                onClick={() => openDialog(cd)}
+              <a
+                href={AMAZON_ALBUM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn btn-sm"
                 style={{ background: ACCENT_PAIR[i % 2], color: 'var(--text-on-dark)' }}
               >
                 Commander
-              </button>
+              </a>
             </div>
           </div>
         ))}
       </div>
-
-      {activeCd && (
-        <div
-          style={{
-            position: 'fixed',
-            inset: 0,
-            display: 'grid',
-            placeItems: 'center',
-            padding: 17.6,
-            background: 'rgba(21,33,61,0.5)',
-            zIndex: 100,
-            overflowY: 'auto',
-          }}
-        >
-          <div
-            className="card-dark"
-            style={{ width: 'min(480px,100%)', display: 'flex', flexDirection: 'column', gap: 13.2, padding: 26.4, boxShadow: '0 12px 32px rgba(21,33,61,0.22)', maxHeight: '90vh', overflowY: 'auto' }}
-          >
-            <div style={{ fontFamily: "'Caprasimo',system-ui,sans-serif", fontSize: 20 }}>Commander — {activeCd.title}</div>
-            {error && (
-              <div style={{ padding: '10px 14px', borderRadius: 16, background: 'var(--coral)', color: 'var(--text-on-dark)', fontSize: 13 }}>
-                {error}
-              </div>
-            )}
-            <form onSubmit={submitOrder} className="field field-light" style={{ display: 'flex', flexDirection: 'column', gap: 13.2 }}>
-              <input name="customerName" required placeholder="Nom complet" />
-              <input name="customerEmail" required type="email" placeholder="Email" />
-              <input name="customerPhone" required type="tel" placeholder="Téléphone" />
-              <div>
-                <label style={{ marginBottom: 4.4 }}>Quantité</label>
-                <input
-                  type="number"
-                  min={1}
-                  value={quantity}
-                  onChange={(e) => setQuantity(Math.max(1, Number(e.target.value) || 1))}
-                />
-              </div>
-
-              <input name="shippingStreet" required placeholder="Adresse (rue, numéro)" />
-              <div style={{ display: 'flex', gap: 8.8 }}>
-                <input name="shippingPostalCode" required placeholder="Code postal" style={{ flex: 1 }} />
-                <input name="shippingCity" required placeholder="Ville" style={{ flex: 2 }} />
-              </div>
-              <input name="shippingCountry" required placeholder="Pays" />
-
-              <div>
-                <label style={{ marginBottom: 8.8 }}>Livraison</label>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 6.6 }}>
-                  {SHIPPING_OPTIONS.map((option) => (
-                    <label
-                      key={option.value}
-                      style={{ display: 'flex', alignItems: 'center', gap: 8.8, fontSize: 13 }}
-                    >
-                      <input
-                        type="radio"
-                        name="shippingOptionRadio"
-                        checked={shippingOption === option.value}
-                        onChange={() => setShippingOption(option.value)}
-                      />
-                      {option.label} — {priceFormatter.format(option.cost)}
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              <textarea name="message" placeholder="Message (optionnel)" />
-
-              <div style={{ fontSize: 15, fontFamily: "'Caprasimo',system-ui,sans-serif", textAlign: 'right' }}>
-                Total : {priceFormatter.format(total)}
-              </div>
-
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8.8, marginTop: 4.4 }}>
-                <button type="button" onClick={closeDialog} className="btn btn-outline">Annuler</button>
-                <button type="submit" disabled={submitting} className="btn btn-amber">
-                  {submitting ? 'Redirection…' : 'Payer'}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
