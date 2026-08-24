@@ -10,6 +10,7 @@
   --text-on-dark: #fffdf8;
   --pad-x: 35.2px;
   --pad-left: 64px;
+  --header-height: 90px;
 }
 
 * {

@@ -20,7 +20,22 @@ export function Header() {
   const isAdmin = currentMember?.role === 'ADMIN';
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const closeMenu = () => setMenuOpen(false);
+
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+
+    const updateHeaderHeight = () => {
+      document.documentElement.style.setProperty('--header-height', `${el.offsetHeight}px`);
+    };
+
+    updateHeaderHeight();
+    const observer = new ResizeObserver(updateHeaderHeight);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -47,6 +62,7 @@ export function Header() {
 
   return (
     <header
+      ref={headerRef}
       style={{
         position: 'sticky',
         top: 0,
@@ -69,8 +85,9 @@ export function Header() {
         onClick={closeMenu}
         style={{
           display: 'flex',
-          alignItems: 'center',
-          gap: 8.8,
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          gap: 2.2,
           fontFamily: "'Caprasimo',system-ui,sans-serif",
           fontSize: 19,
           marginRight: 'auto',

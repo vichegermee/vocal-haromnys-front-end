@@ -24,12 +24,12 @@ export function Sidebar() {
       onMouseLeave={() => setExpanded(false)}
       style={{
         position: 'fixed',
-        top: 90,
+        top: 'calc(var(--header-height) + 20px)',
         right: 0,
         zIndex: 30,
         width: expanded ? 'var(--news-panel-width)' : 'var(--news-collapsed-width)',
-        height: expanded ? 'calc(100vh - 110px)' : 'var(--news-collapsed-height)',
-        maxHeight: 'calc(100vh - 110px)',
+        height: expanded ? 'calc(100vh - var(--header-height) - 40px)' : 'var(--news-collapsed-height)',
+        maxHeight: 'calc(100vh - var(--header-height) - 40px)',
         overflow: 'hidden',
         borderRadius: '24px 0 0 24px',
         background: 'var(--bg)',
@@ -70,7 +70,7 @@ export function Sidebar() {
         style={{
           width: 'var(--news-panel-width)',
           padding: '35.2px 26.4px',
-          maxHeight: 'calc(100vh - 110px)',
+          maxHeight: 'calc(100vh - var(--header-height) - 40px)',
           overflowY: 'auto',
           opacity: expanded ? 1 : 0,
           transition: 'opacity 0.25s ease',
