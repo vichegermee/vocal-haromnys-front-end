@@ -54,9 +54,6 @@ export function Login() {
           {submitting ? 'Connexion…' : 'Se connecter'}
         </button>
       </form>
-      <p style={{ fontSize: 12, opacity: 0.55, marginTop: 17.6 }}>
-        Compte de démonstration — identifiant <strong>marie</strong>, mot de passe <strong>gospel2026</strong>.
-      </p>
     </section>
   );
 }
